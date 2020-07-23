@@ -1,0 +1,9 @@
+User Requirements Document (URD)
+
+As a small to medium business owner I require a cloud based point of sale system that is both
+intuitive and easy to use. 
+As a loss of network connectivity could result in lost sales the POS system must have an 
+offline redundancy to prevent inturruption to sale.
+As managers vary in technical experience it must be easy to pull reports of user sales and
+stock levels.
+

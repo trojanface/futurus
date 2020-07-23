@@ -1,0 +1,32 @@
+Futurus DB
+
+Users Table
+user_id
+user_firstName
+user_lastName
+user_adminLevel  [0-SUPER USER, 1-Manager, 2-POS USER]
+user_email
+user_password
+user_date_created
+
+Departments Table
+dept_id
+dept_name
+dept_date_created
+
+Products Type Table
+prod_id
+prod_name
+prod_cost
+prod_price
+prod_department
+
+Inventory Table
+inv_id
+inv_product_type
+inv_transaction_num
+
+Transaction Table
+trans_id
+trans_date
+trans_user

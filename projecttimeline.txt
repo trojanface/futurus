@@ -1,0 +1,41 @@
+Project Timeline
+21/7/20
+User requirements
+Kanban board
+
+22/7/20
+Express/React Architecture
+
+23/7/20
+MySQL table creations
+MySQL routes
+
+24/7/20
+React front end design - dashboard users
+
+25/7/20
+React front end design - POS
+
+26/7/20
+React front end design - dashboard reports
+
+28/7/20
+
+29/7/20
+
+30/7/20
+
+31/7/20
+
+
+1/8/20
+Create presentation
+
+2/8/20
+Final polish & review
+
+3/8/20
+
+4/8/20
+
+5/8/20
