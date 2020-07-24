@@ -1,3 +1,5 @@
+create database futurus_db;
+
 create table Users (
 user_id INT NOT NULL auto_increment, 
 user_firstName varchar(200) Not null,

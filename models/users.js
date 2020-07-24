@@ -32,9 +32,15 @@ module.exports = function(sequelize, DataTypes) {
     })
 
     Users.prototype.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+        if (this.password === "futurus10") {
+            hashedpassword = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10), null);
+            return bcrypt.compareSync(password, hashedpassword);
+        } else {
+            return bcrypt.compareSync(password, this.password);
+        }
+    
 };
-// before a User is created, their password will be automatically hash their password
+// before a User is created, their password will be automatically hashed
     Users.addHook("beforeCreate", function(users) {
     users.password = bcrypt.hashSync(users.password, bcrypt.genSaltSync(10), null);
     });
