@@ -21,7 +21,7 @@ app.use(routes);
 
 
 
-futurus_db.sequelize.sync({ force: true }).then(function() {
+futurus_db.sequelize.sync().then(function() {
   // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
