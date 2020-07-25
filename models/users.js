@@ -28,6 +28,50 @@ module.exports = function(sequelize, DataTypes) {
         adminLevel: {
             type: DataTypes.INTEGER,
         allowNull: false
+        },
+        POS: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        userDesigner: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        itemDesigner: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        keyLayout: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        stocktake: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        reports: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        membership: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        advertising: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        refunds: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        cashDrops: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
+        },
+        balances: {
+            type: DataTypes.BOOLEAN,
+        allowNull: false
         }
     })
 
