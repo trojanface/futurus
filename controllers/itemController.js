@@ -2,9 +2,26 @@ const db = require("../models");
 
 // Defining methods for the userController
 module.exports = {
-  findAll: function(req, res) {
-    db.users.findAll({
-        attributes: ['user_id','userName', 'firstName','lastName','email','POS','userDesigner', 'itemDesigner', 'keyLayout', 'stocktake', 'reports', 'membership', 'advertising', 'refunds', 'cashDrops', 'balances']
+      find: function(req, res) {
+      console.log(req.params.id)
+    db.products.findAll({
+        where: {
+          prod_id: req.params.id
+        },
+        attributes: ['name','cost','price','department']
+    })
+      .then(dbModel => {
+          console.log(dbModel)
+          res.json(dbModel)})
+      .catch(err => res.status(422).json(err));
+  },
+  findAllWithDep: function(req, res) {
+      console.log(req.params.id)
+    db.products.findAll({
+        where: {
+          department: req.params.id
+        },
+        attributes: ['name','cost','price','department']
     })
       .then(dbModel => {
           console.log(dbModel)
@@ -22,8 +39,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    console.log("adding new user")
-    db.users
+    console.log("adding new item")
+    db.products
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

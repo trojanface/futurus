@@ -3,8 +3,8 @@ const db = require("../models");
 // Defining methods for the userController
 module.exports = {
   findAll: function(req, res) {
-    db.users.findAll({
-        attributes: ['user_id','userName', 'firstName','lastName','email','POS','userDesigner', 'itemDesigner', 'keyLayout', 'stocktake', 'reports', 'membership', 'advertising', 'refunds', 'cashDrops', 'balances']
+    db.departments.findAll({
+        attributes: ['name']
     })
       .then(dbModel => {
           console.log(dbModel)
@@ -22,8 +22,8 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    console.log("adding new user")
-    db.users
+    console.log("adding new department")
+    db.departments
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

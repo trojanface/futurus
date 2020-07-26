@@ -1,8 +1,10 @@
 create database futurus_db;
-INSERT INTO users (firstName, lastName, email, password, adminLevel, createdAt, updatedAt, POS, userDesigner, itemDesigner, keyLayout, stocktake, reports,membership, advertising, refunds, cashDrops, balances) 
-VALUES ('Matthew', 'Teague', 'matthewjteague@outlook.com', 'futurus10', 0, Now(), now(), true, true, true, true, true, true, true, true, true, true, true);
+INSERT INTO users (userName, firstName, lastName, email, password, adminLevel, createdAt, updatedAt, POS, userDesigner, itemDesigner, keyLayout, stocktake, reports,membership, advertising, refunds, cashDrops, balances) 
+VALUES ('mteague','Matthew', 'Teague', 'matthewjteague@outlook.com', 'futurus10', 0, Now(), now(), true, true, true, true, true, true, true, true, true, true, true);
 
 Select * from users;
+Select * from departments;
+Select * from products;
 
 create table Users (
 user_id INT NOT NULL auto_increment, 
