@@ -74,6 +74,10 @@ module.exports = function(sequelize, DataTypes) {
         balances: {
             type: DataTypes.BOOLEAN,
         allowNull: false
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
         }
     })
 
@@ -90,6 +94,11 @@ module.exports = function(sequelize, DataTypes) {
     Users.addHook("beforeCreate", function(users) {
     users.password = bcrypt.hashSync(users.password, bcrypt.genSaltSync(10), null);
     });
+    Users.addHook("beforeBulkUpdate", function(users) {//this screws up updating the user when not adding a password perhaps because its expecting a password upon every update.
+        if (users.attributes.password){
+        users.attributes.password = bcrypt.hashSync(users.attributes.password, bcrypt.genSaltSync(10), null);
+    }
+        });
     //     Users.associate = models => {
     //     Users.hasMany(models.orders, {
     //         onDelete: "cascade"

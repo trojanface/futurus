@@ -11,7 +11,7 @@ passport.use(new LocalStrategy(//new instance of a passport strategy
         console.log("checking user")
         db.users.findOne({
             where: {
-                email: usr//finds user in database
+                username: usr//finds user in database
             }
         }).then(function (dbUser) {
             if (!dbUser) {//if it cant find user then it returns below

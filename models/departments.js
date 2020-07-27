@@ -9,6 +9,10 @@ module.exports = function(sequelize, DataTypes) {
         name: {
             type: DataTypes.STRING,
         allowNull: false
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
         }
     })
 

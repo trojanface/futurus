@@ -4,13 +4,17 @@ const itemController = require("../../controllers/itemController");
 // Matches with "/api/users/:id"
 router
   .route("/:id")
- .get(itemController.findAllWithDep);
+ .get(itemController.findAllWithDep)
+ .put(itemController.update)
+ .delete(itemController.delete);
 
 router
   .route("/single/:id")
  .get(itemController.find);
 
+
  router.route("/")
-  .post(itemController.create);
+  .post(itemController.create)
+  .get(itemController.findAllActive);
 
 module.exports = router;

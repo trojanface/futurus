@@ -5,8 +5,13 @@ const deptController = require("../../controllers/deptController");
 router.route("/all")
   .get(deptController.findAll);
 // Matches with "/api/depts"
-  router.route("/")
+router.route("/")
   .post(deptController.create);
+
+router
+  .route("/:id")
+  .delete(deptController.delete);
+
 // Matches with "/api/users/:id"
 // router
 //   .route("/:id")

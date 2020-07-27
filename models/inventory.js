@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
         },
         transactionNum: {
             type: DataTypes.INTEGER
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
         }
     })
 
