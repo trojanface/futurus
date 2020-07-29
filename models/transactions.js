@@ -9,6 +9,12 @@ module.exports = function(sequelize, DataTypes) {
         user: {
             type: DataTypes.INTEGER,
         allowNull: false
+        },
+        transItems: {
+            type: DataTypes.STRING
+        },
+        transValue: {
+            type: DataTypes.INTEGER
         }
     })
 
