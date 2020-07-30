@@ -31,6 +31,14 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
         allowNull: false
         },
+        totTime: {
+            type: DataTypes.INTEGER,
+        defaultValue: 0
+        },
+        totalTrans: {
+            type: DataTypes.INTEGER,
+        defaultValue: 0
+        },
         POS: {
             type: DataTypes.BOOLEAN,
         allowNull: false

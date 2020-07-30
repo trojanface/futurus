@@ -6,7 +6,7 @@ module.exports = {
     if (req.user) {
     db.users.findAll({
       where: {isActive: true},
-        attributes: ['user_id','userName', 'firstName','lastName','email','POS','userDesigner', 'itemDesigner', 'keyLayout', 'stocktake', 'reports', 'membership', 'advertising', 'refunds', 'cashDrops', 'balances']
+        attributes: ['totTime', 'totalTrans', 'user_id','userName', 'firstName','lastName','email','POS','userDesigner', 'itemDesigner', 'keyLayout', 'stocktake', 'reports', 'membership', 'advertising', 'refunds', 'cashDrops', 'balances']
     })
       .then(dbModel => {
           console.log(dbModel)
