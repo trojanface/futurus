@@ -12,6 +12,9 @@ router
   .route("/single/:id")
  .get(itemController.find);
 
+ router
+  .route("/find/:query")
+ .get(itemController.query);
 
  router.route("/")
   .post(itemController.create)

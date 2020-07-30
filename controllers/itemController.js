@@ -2,6 +2,21 @@ const db = require("../models");
 
 // Defining methods for the userController
 module.exports = {
+  query: function (req, res) {
+    if (req.user) {
+    db.products.findAll({
+      where: {
+        name: req.params.query,
+        isActive: true
+      },
+      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department']
+    })
+      .then(dbModel => {
+
+        res.json(dbModel)
+      })
+      .catch(err => res.status(422).json(err));
+  }},
   find: function (req, res) {
     if (req.user) {
     db.products.findAll({
