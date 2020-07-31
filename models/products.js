@@ -29,6 +29,12 @@ module.exports = function(sequelize, DataTypes) {
         isActive: {
             type: DataTypes.BOOLEAN,
             defaultValue: true
+        },
+        iconPath: {
+            type: DataTypes.STRING
+        },
+        upsell: {
+            type: DataTypes.STRING
         }
     })
 

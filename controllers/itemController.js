@@ -9,7 +9,7 @@ module.exports = {
         name: req.params.query,
         isActive: true
       },
-      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department']
+      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department', 'iconPath', 'upsell']
     })
       .then(dbModel => {
 
@@ -24,7 +24,7 @@ module.exports = {
         prod_id: req.params.id,
         isActive: true
       },
-      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department']
+      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department', 'iconPath', 'upsell']
     })
       .then(dbModel => {
 
@@ -39,7 +39,7 @@ module.exports = {
       where: {
         isActive: true
       },
-      attributes: ['stockCount', 'prod_id', 'name', 'cost', 'price', 'department']
+      attributes: ['stockCount', 'prod_id', 'name', 'cost', 'price', 'department', 'iconPath', 'upsell']
     })
       .then(dbModel => {
 
@@ -57,7 +57,7 @@ console.log("not logged in")
         department: req.params.id,
         isActive: true
       },
-      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department']
+      attributes: ['stockCount','prod_id', 'name', 'cost', 'price', 'department', 'iconPath', 'upsell']
     })
       .then(dbModel => {
 
