@@ -5,7 +5,6 @@ module.exports = {
  
   create: function(req, res) {
     if (req.user) {
-    console.log("adding new transaction")
     db.transactions
       .create(req.body)
       .then(dbModel => res.json(dbModel))

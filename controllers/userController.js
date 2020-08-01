@@ -9,7 +9,6 @@ module.exports = {
         attributes: ['totTime', 'totalTrans', 'user_id','userName', 'firstName','lastName','email','POS','userDesigner', 'itemDesigner', 'keyLayout', 'stocktake', 'reports', 'membership', 'advertising', 'refunds', 'cashDrops', 'balances']
     })
       .then(dbModel => {
-          console.log(dbModel)
           res.json(dbModel)})
       .catch(err => res.status(422).json(err));
   }},
@@ -37,7 +36,6 @@ module.exports = {
   }},
   create: function(req, res) {
     if (req.user) {
-    console.log("adding new user")
     db.users
       .create(req.body)
       .then(dbModel => res.json(dbModel))

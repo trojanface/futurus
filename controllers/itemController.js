@@ -34,7 +34,6 @@ module.exports = {
   }},
   findAllActive: function (req, res) {
     if (req.user) {
-    console.log("triggered")
     db.products.findAll({
       where: {
         isActive: true
@@ -51,7 +50,6 @@ console.log("not logged in")
   }},
   findAllWithDep: function (req, res) {
     if (req.user) {
-    console.log(req.params.id)
     db.products.findAll({
       where: {
         department: req.params.id,
