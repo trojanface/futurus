@@ -1,0 +1,12 @@
+.altColor {
+    background: rgb(97,124,168);
+    background: linear-gradient(143deg, rgba(97,124,168,1) 0%, rgba(65,84,116,1) 100%);
+}
+
+.leftMenuHeight{
+min-height: 30vh;
+}
+
+.rightMenuHeight{
+min-height: 46.3vh;
+}

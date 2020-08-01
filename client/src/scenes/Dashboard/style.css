@@ -1,0 +1,62 @@
+.noStyle {
+    list-style: none;
+    padding: 0;
+}
+
+.smallSubText {
+    color: white;
+    font-size: 20px;
+}
+
+.blueBackground {
+    background: rgb(97,124,168);
+    background: linear-gradient(143deg, rgba(97,124,168,1) 0%, rgba(65,84,116,1) 100%);
+}
+
+.blueHighlight {
+    border: 3px solid #565FAF;
+box-sizing: border-box;
+border-radius: 8px;
+}
+
+.Enabled {
+    color: white;
+    font-weight: bold;
+    background: #34c56e;
+    border-radius: 8px;
+border-style: none;
+height: 43px;
+}
+.Enabled:hover {
+    background: #74d199;
+}
+
+.mtb-2 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.dropDownMenuHighlight:hover {
+    font-weight: bold;
+    background-color: rgb(241, 241, 241);
+}
+
+.Disabled {
+    color: white;
+    font-weight: bold;
+    background: #C28B71;
+    border-radius: 8px;
+border-style: none;
+height: 43px;
+}
+.Disabled:hover {
+    background: #c79a85;
+}
+
+
+.narrow {
+    width: 90%;
+}
+
+
+

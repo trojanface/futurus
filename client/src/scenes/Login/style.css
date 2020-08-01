@@ -1,0 +1,203 @@
+body {
+    background: rgb(86,95,175);
+    background: radial-gradient(circle, rgba(86,95,175,1) 0%, rgba(58,65,128,1) 100%);
+}
+
+.loginVert {
+    margin-top: 40vh;
+}
+
+.loginContactVert {
+    margin-top: 20vh;
+}
+
+.mainHeading {
+   
+    font-family: Scada;
+font-style: normal;
+font-weight: normal;
+font-size: 70px;
+
+
+color: #FFFFFF;
+}
+
+.ml-12 {
+    margin-left: 12%;
+}
+
+.subHeading {
+    font-family: Roboto;
+font-style: italic;
+font-weight: normal;
+font-size: 35px;
+
+
+color: #D6D6D6;
+}
+
+.navHeight {
+    max-height: 7vh;
+}
+
+.inputBox {
+    border-radius: 8px;
+    border-style: none;
+    margin-bottom: 3%;
+    width: 100%;
+height: 43px;
+padding: 3%;
+
+}
+
+.centerText {
+    text-align: center;
+}
+
+.voiceSearch {
+    color: black;
+    font-weight: bold;
+    background: white;
+border-radius: 8px;
+border-style: none;
+}
+.voiceSearch:hover {
+   background: rgb(240, 239, 239);
+}
+.voiceSearch:active {
+    background: rgb(240, 239, 239);
+}
+
+@media only screen and (max-width: 768px) {
+    .whiteButton {
+        color: black;
+        font-weight: bold;
+        background: white;
+    border-radius: 8px;
+    border-style: none;
+    height: 14vw;
+    width: 14vw;
+    }
+    }
+@media only screen and (max-width: 1150px) and (min-width: 768px) {
+.whiteButton {
+    color: black;
+    font-weight: bold;
+    background: white;
+border-radius: 8px;
+border-style: none;
+height: 7vw;
+width: 7vw;
+}
+}
+@media only screen and (min-width: 1150px) {
+    .whiteButton {
+        color: black;
+        font-weight: bold;
+        background: white;
+    border-radius: 8px;
+    border-style: none;
+    height: 10vh;
+    width: 10vh;
+    }
+    }
+.whiteButton:hover {
+    background: rgb(223, 222, 222);
+}
+.whiteButton:active {
+    background: rgb(206, 206, 206);
+}
+.roundButton {
+    border-radius: 50%;
+}
+.greenButton {
+    color: white;
+    font-weight: bold;
+    background: #3ED77B;
+border-radius: 8px;
+border-style: none;
+min-height: 43px;
+width: 100%;
+min-width: 60px;
+}
+.greenButton:hover {
+    background: #6bf0a0;
+}
+.greenButton:active {
+    background: #34c56e;
+}
+.redButton {
+    color: white;
+    font-weight: bold;
+    background: #C28B71;
+border-radius: 8px;
+border-style: none;
+min-height: 43px;
+width: 100%;
+min-width: 60px;
+}
+.redButton:hover {
+    background: #d4a38c;
+}
+.redButton:active {
+    background: #b8775a;
+}
+.blueButton {
+    color: white;
+    font-weight: bold;
+    background: rgb(97,124,168);
+background: linear-gradient(169deg, rgba(97,124,168,1) 0%, rgb(138, 155, 182) 49%, rgba(97,124,168,1) 100%);
+    border-radius: 8px;
+border-style: none;
+min-height: 43px;
+width: 100%;
+}
+.blueButton:hover {
+    background: #7b99ca;
+}
+.blueButton:active {
+    background: #506b96;
+}
+.butt100 {
+    width: 100%;
+}
+.butt75 {
+    width: 75%;
+}
+.butt50 {
+    width: 50%;
+}
+.butt25 {
+    width: 25%;
+}
+.butt10 {
+    width: 10%;
+}
+
+
+
+
+.attention {
+    background: rgb(253, 247, 192);
+    animation: attention 2s ease infinite;
+    border-style: solid;
+    border-color: red;
+}
+
+@keyframes attention {
+    20% {
+      transform: none;
+    }
+    40% {
+      transform: scale(1.05);
+    }
+    60% {
+      transform: scale(0.95);
+    }
+    80% {
+      transform: scale(1.03);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }

@@ -1,0 +1,247 @@
+import React, { useContext, useState, useEffect } from 'react'
+import './style.css'
+import API from '../../../utils/API'
+import Inputbox from '../../../components/CheckBox/Inputbox'
+import Dashboard from '../Dashboard'
+import Togglebutton from './Togglebutton'
+import createNotification from '../../../components/CheckBox/Notification'
+import { NotificationContainer } from 'react-notifications'
+
+
+export default function UserDesigner() {
+    const [userList, setUserList] = useState([])
+    const [selected, setSelect] = useState(0)
+    const [testState, setTestState] = useState(false)
+    
+    let password1 = "";
+    let password2 = "";
+    let password3 = "";
+    const permissions = ["POS", "userDesigner", "itemDesigner", "keyLayout", "stocktake", "reports", "membership", "advertising", "refunds", "cashDrops", "balances"];
+    const permissionsText = ["POS", "User Designer", "Item Designer", "Key Layout", "Stocktake", "Reports", "Membership", "Advertising", "Refunds", "Cash Drops", "Balances"];
+    const [newUser, setNewUser] = useState({
+        POS: false, advertising: false, balances: false,
+        cashDrops: false, email: "", firstName: "", itemDesigner: false, keyLayout: false,
+        lastName: "", membership: false, refunds: false, reports: false, stocktake: false,
+        userDesigner: false, password: "", adminLevel: 1, isActive: true, totTime: 0, totalTrans: 0
+    });
+    useEffect(() => {
+      getUsers();
+    }, [])
+
+function getUsers () {
+    API.getUsers().then((res) => {
+        setUserList(res.data);
+    }).catch((err) => {
+        console.log(err);
+    })
+}
+
+    function userChange(change) {
+        switch (change[0].arrayTitle) {
+            case 'password1':
+                password1 = change[1];
+                break;
+            case 'password2':
+                password2 = change[1];
+                break;
+            case 'password3':
+                password3 = change[1];
+                break;
+            default:
+                userList[selected][change[0].arrayTitle] = change[1]
+                return;
+
+        }
+    }
+
+    function checkPassword() {
+        if (password2.length > 0) {
+        if (password2 === password3) {
+            userList[selected]["password"] = password3;
+            API.updateUserPassword(userList[selected]);
+            createNotification('success','Success','Password updated', 3000)
+        } else {
+            createNotification('error','Error','Your passwords do not match', 4000)
+        }
+    } else {
+        createNotification('error','Error','Cannot have blank password', 4000)
+    }
+
+    }
+
+    function submitChanges() {
+     
+        API.updateUser(userList[selected]).then(()=>{
+            getUsers();
+            createNotification('success','Success','User updated', 3000)
+        }).catch((err) => {createNotification('error','Error',err, 3000)});
+    }
+    function deleteUser() {
+        if (selected != 0) {
+        API.deleteUser(userList[selected].user_id).then(()=>{
+            setSelect(0);
+            getUsers();
+            createNotification('success','Success','User deleted', 3000)
+        }).catch((err) => {createNotification('error','Error',err, 3000)});
+    }
+    }
+    function submitNewUser() {
+        API.addUser(newUser).then(()=>{
+            getUsers();
+            createNotification('success','Success','New user created', 4000)
+        }).catch((err) => {createNotification('error','Error',err, 3000)});
+    }
+
+
+    function newUserInput(change) {
+        
+let tempUser = newUser;
+tempUser[change[0].arrayTitle] = change[1]
+        setNewUser(tempUser)
+    }
+
+    function toggleElement(selection, element) {
+        let tempList = userList;
+        tempList[selection][element] = !tempList[selection][element];
+        setUserList(tempList);
+        setTestState(!testState)
+
+    }
+
+
+    function toggleNewElement(selection, element) {
+
+let tempUser = newUser;
+tempUser[element] = !tempUser[element];
+setNewUser(tempUser);
+        setTestState(!testState)
+
+        // element = !element;
+    }
+
+    return (
+        <>
+        <NotificationContainer/>
+            <div className="row no-gutters">
+                <div className="col-md-3 text-center">
+                    <Dashboard />
+                </div>
+                <div className="col-md-9 d-flex justify-content-center">
+                    <div className="container">
+                        <div className="row blueBackground ">
+                            <div className="modal fade" id="userModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog" role="document">
+                                    <div className="modal-content blueBackground">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">Create New User</h5>
+                                        </div>
+                                        <div className="modal-body">
+                                            <Inputbox arrayTitle="userName" changeValue={newUserInput} title="Username" placehold="" />
+                                            <Inputbox arrayTitle="firstName" changeValue={newUserInput} title="First Name" placehold="" />
+                                            <Inputbox arrayTitle="lastName" changeValue={newUserInput} title="Last Name" placehold="" />
+                                            <Inputbox arrayTitle="email" changeValue={newUserInput} title="Email" placehold="" />
+                                            <Inputbox type="password" arrayTitle="password" changeValue={newUserInput} title="Password" placehold="" />
+                                            <Inputbox type="password" arrayTitle="passwordConf" changeValue={newUserInput} title="Confirm Password" placehold="" />
+                                            <h5>Permissions</h5>
+                                            {permissions.map((element, index) => {
+                                                return <div key={index} className="row whiteBackground blueHighlight mt-1">
+                                                    <div className="col-md-4">
+                                                        {permissionsText[index]}
+                                                    </div>
+                                                    <div className="col-md-8 text-right">
+                                                    <Togglebutton toggleFunc={toggleNewElement} storedElement={element} storedSelection={-1} storedValue={newUser[element]} />
+                                                        {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={newUser[element]} ></input> */}
+                                                    </div>
+                                                </div>
+
+                                            })}
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary redButton" data-dismiss="modal">Cancel</button>
+                                            <button type="button" onClick={submitNewUser} className="btn btn-primary greenButton" data-dismiss="modal">Create User</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="modal fade" id="passwordModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog" role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">New Password</h5>
+                                        </div>
+                                        <div className="modal-body">
+                                            <Inputbox type="password" arrayTitle="password1" changeValue={userChange} title="Current Password" placehold="" />
+                                            <Inputbox type="password" arrayTitle="password2" changeValue={userChange} title="New Password" placehold="" />
+                                            <Inputbox type="password" arrayTitle="password3" changeValue={userChange} title="Confirm Password" placehold="" />
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" onClick={checkPassword} className="btn btn-primary" data-dismiss="modal">Confirm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-4 whiteBackground blueHighlight pt-4">
+                                <h5>Users</h5>
+                                <ul className="noStyle">
+                                    {userList.map((element, index) => {
+                                        return <li key={index}>
+                                            <button className="blueButton butt75 mtb-2" onClick={function () { setSelect(index) }}>{element.firstName} {element.lastName}</button>
+                                        </li>
+                                    })}
+                                    <li>
+
+                                        <button className="greenButton butt75 mtb-2" data-toggle="modal" data-target="#userModal" >Create User</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="col-md-8 whiteBackground blueHighlight pt-4">
+
+                                
+                                <ul>
+
+                                    {userList[0] ? <div>
+                                        <h5>{userList[0] ? `${userList[selected].firstName} ${userList[selected].lastName}` : ""}</h5>
+                                        <Inputbox arrayTitle="username" changeValue={userChange} title="Username" placehold={userList[selected].userName} />
+                                        <Inputbox arrayTitle="firstName" changeValue={userChange} title="First Name" placehold={userList[selected].firstName} />
+                                        <Inputbox arrayTitle="lastName" changeValue={userChange} title="Last Name" placehold={userList[selected].lastName} />
+                                        <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
+                                        <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
+                                        <h5>Permissions</h5>
+                                        {permissions.map((element, index) => {
+                                            return <div key={index} className="row">
+                                                    <div className="col-md-4">
+                                                        {permissionsText[index]}
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                        <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
+                                                        {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={userList[selected][element]} ></input> */}
+                                                    </div>
+                                                </div>
+                                            
+                                        })}
+
+                                    </div> : "Please select a user"}
+                                </ul>
+                            </div>
+                        </div>
+                        {userList[0] ?
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <button className="greenButton butt50" onClick={submitChanges}>Save Changes</button>
+                                </div>
+                                <div className="col-md-6">
+                                    <button className="redButton butt50" onClick={deleteUser}>Delete User</button>
+                                </div>
+                            </div>
+                            : <> </>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+//TODO figure out toggle buttons add delete user functionality.
