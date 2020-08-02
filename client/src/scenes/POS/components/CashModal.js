@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 
 export default function CashModal(props) {
     const cashValues = [100, 50, 20, 10, 5, 2, 1, .50, .20, .10, .05]
-    const cashPaths = [`https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQW85NSAbgjSeSmBI4JSxL2u-Hz9ZMy_LRZuZwPpM46xg&usqp=CAU&ec=45687375`,
+    const cashPaths = [`https://banknotes.rba.gov.au/banknote-features/images/new-hundred/new-hundred-banknote.jpg`,
         `https://banknotes.rba.gov.au/banknote-features/images/new-fifty/new-fifty-banknote-flipped.jpg`,
-        `https://lh3.googleusercontent.com/proxy/FrKPHtGoHhlF_TdmX44sjsYk6qZkh3yYD3WWRtciHAEsWEGhOaS3NMRBhj9bGlFUBmLAXZbrpzz7fkmblrWwiqJp5lwXmViJZgpg41dPgdgfBL4czL7rrWOrR6czx69Z56fAoVMQnHmP`,
+        `https://banknotes.rba.gov.au/banknote-features/images/new-twenty/new-twenty-banknote.jpg`,
         `https://banknotes.rba.gov.au/banknote-features/images/new-ten/new-ten-banknote.jpg`,
         `https://banknotes.rba.gov.au/assets/images/australias-banknotes/banknotes-in-circulation/five-dollar-note-ngb.jpg`,
         `https://www.ramint.gov.au/sites/default/files/2019/Corporate_Website/Misc/large_australia_standard_rev_2_albr_circ_hh.jpg`,
