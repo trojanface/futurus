@@ -1,4 +1,5 @@
 const db = require("../models");
+const { sequelize } = require("../models");
 
 // Defining methods for the userController
 module.exports = {
@@ -65,31 +66,40 @@ console.log("not logged in")
   }},
   delete: function (req, res) {
     if (req.user) {
-    db.products
-      .update({ isActive: false }, {
-        where: {
-          prod_id: req.params.id
-        }
+      return sequelize.transaction(function (dbTransaction) {
+return db.products
+.update({ isActive: false }, {
+  where: {
+    prod_id: req.params.id
+  }
+}, {transaction: dbTransaction})
+.then(dbModel => res.json(dbModel))
+.catch(err => res.status(422).json(err));
       })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    
   }},
   update: function (req, res) {
     if (req.user) {
-    db.products
-      .update(req.body, {
-        where: {
-          prod_id: req.params.id
-        }
+      return sequelize.transaction(function (dbTransaction) {
+        return db.products
+        .update(req.body, {
+          where: {
+            prod_id: req.params.id
+          }
+        }, {transaction: dbTransaction})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
       })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    
   }},
   create: function (req, res) {
     if (req.user) {
-    db.products
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      return sequelize.transaction(function (dbTransaction) {
+        return db.products
+        .create(req.body, {transaction: dbTransaction})
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      })
+    
   }}
 };

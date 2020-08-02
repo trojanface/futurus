@@ -3,13 +3,7 @@ body {
     background: radial-gradient(circle, rgba(86,95,175,1) 0%, rgba(58,65,128,1) 100%);
 }
 
-.loginVert {
-    margin-top: 40vh;
-}
 
-.loginContactVert {
-    margin-top: 20vh;
-}
 
 .mainHeading {
    
@@ -69,6 +63,22 @@ border-style: none;
 }
 
 @media only screen and (max-width: 768px) {
+    .subHeading {
+        font-family: Roboto;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 30px;
+    
+    
+    color: #D6D6D6;
+    }
+    .loginVert {
+        margin-top: 16vh;
+    }
+    
+    .loginContactVert {
+        margin-top: 10vh;
+    }
     .whiteButton {
         color: black;
         font-weight: bold;
@@ -80,6 +90,13 @@ border-style: none;
     }
     }
 @media only screen and (max-width: 1150px) and (min-width: 768px) {
+    .loginVert {
+        margin-top: 40vh;
+    }
+    
+    .loginContactVert {
+        margin-top: 20vh;
+    }
 .whiteButton {
     color: black;
     font-weight: bold;
@@ -91,6 +108,13 @@ width: 7vw;
 }
 }
 @media only screen and (min-width: 1150px) {
+    .loginVert {
+        margin-top: 40vh;
+    }
+    
+    .loginContactVert {
+        margin-top: 20vh;
+    }
     .whiteButton {
         color: black;
         font-weight: bold;

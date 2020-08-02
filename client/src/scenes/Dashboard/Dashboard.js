@@ -4,7 +4,7 @@ import { store } from '../../GlobalStore'
 import { Redirect } from 'react-router-dom';
 export default function Dashboard() {
     const globalState = useContext(store);
-    const [screen, setScreen] = useState(0)
+    const [screen, setScreen] = useState(0);
 
     switch (screen) {
         case 1:
@@ -33,8 +33,12 @@ export default function Dashboard() {
 
         case 9:
             return <Redirect to='/pos' />
-        case 9:
+
+        case 10:
+            console.log("logging out")
+            globalState.state = 0;
             return <Redirect to='/logout' />
+
         default:
             break;
     }

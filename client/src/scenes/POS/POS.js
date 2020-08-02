@@ -394,7 +394,7 @@ export default function POS() {
                   </>
                   :
                   <>
-                    <input className="form-control butt75" value={searchVal} onChange={handleSearch} type="search" placeholder="Search" aria-label="Search" />
+                    <input className="voiceSearch butt75 py-3 pl-2" value={searchVal} onChange={handleSearch} type="search" placeholder="Search" aria-label="Search" />
                     <button className="greenButton butt25" onClick={(event) => { searchForItem(event) }}>Search</button>
                   </>
                 }
@@ -447,7 +447,7 @@ export default function POS() {
             <div className="col-md-12 rightMenuHeight">
               <div className="row  no-gutters">
                 <h5 className="pl-3 mr-auto">Current Transaction</h5>
-                <button className="redButton butt25 mt-4" onClick={resetTrans}>Clear</button>
+                <button className="redButton butt25 mt-1" onClick={resetTrans}>Clear</button>
               </div>
               <div className="row  no-gutters">
                 {transaction[0] ?

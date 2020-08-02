@@ -6,13 +6,14 @@ import Dashboard from '../Dashboard'
 import Togglebutton from './Togglebutton'
 import createNotification from '../../../components/CheckBox/Notification'
 import { NotificationContainer } from 'react-notifications'
-
+import { store } from '../../../GlobalStore'
+import Validator from '../../../utils/Validator'
 
 export default function UserDesigner() {
     const [userList, setUserList] = useState([])
     const [selected, setSelect] = useState(0)
     const [testState, setTestState] = useState(false)
-    
+    const { state, setState } = useContext(store);
     let password1 = "";
     let password2 = "";
     let password3 = "";
@@ -22,19 +23,20 @@ export default function UserDesigner() {
         POS: false, advertising: false, balances: false,
         cashDrops: false, email: "", firstName: "", itemDesigner: false, keyLayout: false,
         lastName: "", membership: false, refunds: false, reports: false, stocktake: false,
-        userDesigner: false, password: "", adminLevel: 1, isActive: true, totTime: 0, totalTrans: 0
+        userDesigner: false, password: "", adminLevel: 1, isActive: true, totTime: 0, totalTrans: 0,
+        passwordConf: ""
     });
     useEffect(() => {
-      getUsers();
+        getUsers();
     }, [])
 
-function getUsers () {
-    API.getUsers().then((res) => {
-        setUserList(res.data);
-    }).catch((err) => {
-        console.log(err);
-    })
-}
+    function getUsers() {
+        API.getUsers().then((res) => {
+            setUserList(res.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
 
     function userChange(change) {
         switch (change[0].arrayTitle) {
@@ -56,47 +58,53 @@ function getUsers () {
 
     function checkPassword() {
         if (password2.length > 0) {
-        if (password2 === password3) {
-            userList[selected]["password"] = password3;
-            API.updateUserPassword(userList[selected]);
-            createNotification('success','Success','Password updated', 3000)
+            if (password2 === password3) {
+                userList[selected]["password"] = password3;
+                API.updateUserPassword(userList[selected]);
+                createNotification('success', 'Success', 'Password updated', 3000)
+            } else {
+                createNotification('error', 'Error', 'Your passwords do not match', 4000)
+            }
         } else {
-            createNotification('error','Error','Your passwords do not match', 4000)
+            createNotification('error', 'Error', 'Cannot have blank password', 4000)
         }
-    } else {
-        createNotification('error','Error','Cannot have blank password', 4000)
-    }
 
     }
 
     function submitChanges() {
-     
-        API.updateUser(userList[selected]).then(()=>{
+
+        API.updateUser(userList[selected]).then(() => {
             getUsers();
-            createNotification('success','Success','User updated', 3000)
-        }).catch((err) => {createNotification('error','Error',err, 3000)});
+            createNotification('success', 'Success', 'User updated', 3000)
+        }).catch((err) => { console.log(err) });
     }
     function deleteUser() {
         if (selected != 0) {
-        API.deleteUser(userList[selected].user_id).then(()=>{
-            setSelect(0);
-            getUsers();
-            createNotification('success','Success','User deleted', 3000)
-        }).catch((err) => {createNotification('error','Error',err, 3000)});
-    }
+            API.deleteUser(userList[selected].user_id).then(() => {
+                setSelect(0);
+                getUsers();
+                createNotification('success', 'Success', 'User deleted', 3000)
+            }).catch((err) => { console.log(err) });
+        }
     }
     function submitNewUser() {
-        API.addUser(newUser).then(()=>{
-            getUsers();
-            createNotification('success','Success','New user created', 4000)
-        }).catch((err) => {createNotification('error','Error',err, 3000)});
+        if (newUser.password === newUser.passwordConf) {
+            console.log(newUser)
+            API.addUser(newUser).then(() => {
+                getUsers();
+                createNotification('success', 'Success', 'New user created', 4000)
+            }).catch((err) => { console.log(err) });
+        } else {
+            console.log(newUser)
+            createNotification('error', 'Error', 'Passwords do not match', 4000)
+        }
+
     }
 
 
     function newUserInput(change) {
-        
-let tempUser = newUser;
-tempUser[change[0].arrayTitle] = change[1]
+        let tempUser = newUser;
+        tempUser[change[0].arrayTitle] = change[1]
         setNewUser(tempUser)
     }
 
@@ -111,9 +119,9 @@ tempUser[change[0].arrayTitle] = change[1]
 
     function toggleNewElement(selection, element) {
 
-let tempUser = newUser;
-tempUser[element] = !tempUser[element];
-setNewUser(tempUser);
+        let tempUser = newUser;
+        tempUser[element] = !tempUser[element];
+        setNewUser(tempUser);
         setTestState(!testState)
 
         // element = !element;
@@ -121,7 +129,7 @@ setNewUser(tempUser);
 
     return (
         <>
-        <NotificationContainer/>
+            <NotificationContainer />
             <div className="row no-gutters">
                 <div className="col-md-3 text-center">
                     <Dashboard />
@@ -149,7 +157,7 @@ setNewUser(tempUser);
                                                         {permissionsText[index]}
                                                     </div>
                                                     <div className="col-md-8 text-right">
-                                                    <Togglebutton toggleFunc={toggleNewElement} storedElement={element} storedSelection={-1} storedValue={newUser[element]} />
+                                                        <Togglebutton toggleFunc={toggleNewElement} storedElement={element} storedSelection={-1} storedValue={newUser[element]} />
                                                         {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={newUser[element]} ></input> */}
                                                     </div>
                                                 </div>
@@ -196,33 +204,37 @@ setNewUser(tempUser);
                                 </ul>
                             </div>
                             <div className="col-md-8 whiteBackground blueHighlight pt-4">
+                                {(state.user_id - 1) != selected && 
 
-                                
-                                <ul>
+                                    <ul>
 
-                                    {userList[0] ? <div>
-                                        <h5>{userList[0] ? `${userList[selected].firstName} ${userList[selected].lastName}` : ""}</h5>
-                                        <Inputbox arrayTitle="username" changeValue={userChange} title="Username" placehold={userList[selected].userName} />
-                                        <Inputbox arrayTitle="firstName" changeValue={userChange} title="First Name" placehold={userList[selected].firstName} />
-                                        <Inputbox arrayTitle="lastName" changeValue={userChange} title="Last Name" placehold={userList[selected].lastName} />
-                                        <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
-                                        <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
-                                        <h5>Permissions</h5>
-                                        {permissions.map((element, index) => {
-                                            return <div key={index} className="row">
+                                        {userList[0] ? <div>
+                                            <h5>{userList[0] ? `${userList[selected].firstName} ${userList[selected].lastName}` : ""}</h5>
+                                            <Inputbox arrayTitle="username" changeValue={userChange} title="Username" placehold={userList[selected].userName} />
+                                            <Inputbox arrayTitle="firstName" changeValue={userChange} title="First Name" placehold={userList[selected].firstName} />
+                                            <Inputbox arrayTitle="lastName" changeValue={userChange} title="Last Name" placehold={userList[selected].lastName} />
+                                            <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
+                                            <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
+                                            <h5>Permissions</h5>
+                                            {permissions.map((element, index) => {
+                                                return <div key={index} className="row">
                                                     <div className="col-md-4">
                                                         {permissionsText[index]}
                                                     </div>
-                                                    <div className="col-md-8">
+                                                    <div className="col-md-7">
                                                         <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
                                                         {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={userList[selected][element]} ></input> */}
                                                     </div>
                                                 </div>
-                                            
-                                        })}
 
-                                    </div> : "Please select a user"}
-                                </ul>
+                                            })}
+
+                                        </div> : "Please select a user"}
+                                    </ul>
+                                }
+                                {(state.user_id - 1) === selected &&
+                                    <h5>You cannot edit your own permissions.</h5>
+                                }
                             </div>
                         </div>
                         {userList[0] ?

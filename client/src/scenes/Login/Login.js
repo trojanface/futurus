@@ -3,10 +3,12 @@ import './style.css'
 import API from '../../utils/API';
 import { store } from '../../GlobalStore'
 import { Redirect } from 'react-router-dom';
-
+import Validator from '../../utils/Validator';
+import { NotificationContainer } from 'react-notifications'
+import createNotification from '../../components/CheckBox/Notification';
 
 export default function Login() {
-   
+
 
     const [username, setUsername] = useState("")
     const [userPassword, setUserPassword] = useState("")
@@ -22,19 +24,19 @@ export default function Login() {
 
     function login(event) {
         event.preventDefault();
-        API.login({ username, userPassword }).then((res) => {
-
-            console.log(res.data)
-          
-
-            setState({totTime: res.data.totTime, totalTrans: res.data.totalTrans, user_id: res.data.user_id, firstName: res.data.firstName, lastName: res.data.lastName, POS: res.data.POS, advertising: res.data.advertising,
-            balances: res.data.balances, cashDrops: res.data.cashDrops, email: res.data.email, itemDesigner: res.data.itemDesigner, keyLayout: res.data.keyLayout,
-        membership: res.data.membership, refunds: res.data.refunds, reports: res.data.reports, stocktake: res.data.stocktake, userDesigner: res.data.userDesigner});
-
-
-        }).catch((err) => {
-            console.log(err)
-        })
+        if (Validator.isInputEmpty(username) === false && Validator.isInputEmpty(userPassword) === false) {
+            API.login({ username, userPassword }).then((res) => {
+                setState({
+                    totTime: res.data.totTime, totalTrans: res.data.totalTrans, user_id: res.data.user_id, firstName: res.data.firstName, lastName: res.data.lastName, POS: res.data.POS, advertising: res.data.advertising,
+                    balances: res.data.balances, cashDrops: res.data.cashDrops, email: res.data.email, itemDesigner: res.data.itemDesigner, keyLayout: res.data.keyLayout, adminLevel: res.data.adminLevel,
+                    membership: res.data.membership, refunds: res.data.refunds, reports: res.data.reports, stocktake: res.data.stocktake, userDesigner: res.data.userDesigner
+                });
+            }).catch((err) => {
+                createNotification('error', 'Error', 'Username or password are not correct', 4000);
+            })
+        } else {
+            createNotification('error', 'Error', 'Login fields cannot be blank', 4000);
+        }
     }
     if (state != 0) {
         return <Redirect to='/userdesigner' />
@@ -42,7 +44,7 @@ export default function Login() {
 
     return (
         <div>
-
+            <NotificationContainer />
             <div className="row no-gutters ">
                 <div className="col-md-4">
                     <div className="row mt-4">
