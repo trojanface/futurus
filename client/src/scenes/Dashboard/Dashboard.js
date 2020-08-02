@@ -2,13 +2,16 @@ import React, { useContext, useState, useEffect } from 'react'
 import './style.css'
 import { store } from '../../GlobalStore'
 import { Redirect } from 'react-router-dom';
+import API from '../../utils/API';
 export default function Dashboard() {
     const globalState = useContext(store);
     const [screen, setScreen] = useState(0);
 
-    // useEffect(() => {
-    //    if (globalState.state[])
-    // }, [screen])
+    useEffect(() => {
+       if (globalState.state === 0) {
+           setScreen(10);
+       }
+    }, [])
 
     switch (screen) {
         case 1:
@@ -40,6 +43,7 @@ export default function Dashboard() {
 
         case 10:
             console.log("logging out")
+            API.logOut();
             globalState.state = 0;
             return <Redirect to='/logout' />
 

@@ -204,7 +204,7 @@ export default function UserDesigner() {
                                 </ul>
                             </div>
                             <div className="col-md-8 whiteBackground blueHighlight pt-4">
-                                {(state.user_id - 1) != selected && 
+                             
 
                                     <ul>
 
@@ -216,25 +216,26 @@ export default function UserDesigner() {
                                             <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
                                             <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
                                             <h5>Permissions</h5>
-                                            {permissions.map((element, index) => {
-                                                return <div key={index} className="row">
-                                                    <div className="col-md-4">
-                                                        {permissionsText[index]}
+                                            {(state.user_id - 1) != selected &&
+                                                permissions.map((element, index) => {
+                                                    return <div key={index} className="row">
+                                                        <div className="col-md-4">
+                                                            {permissionsText[index]}
+                                                        </div>
+                                                        <div className="col-md-7">
+                                                            <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
+                                                            {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={userList[selected][element]} ></input> */}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-md-7">
-                                                        <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
-                                                        {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={userList[selected][element]} ></input> */}
-                                                    </div>
-                                                </div>
 
-                                            })}
-
+                                                })}
+                                            {(state.user_id - 1) === selected &&
+                                                <h5>You cannot edit your own permissions.</h5>
+                                            }
                                         </div> : "Please select a user"}
                                     </ul>
-                                }
-                                {(state.user_id - 1) === selected &&
-                                    <h5>You cannot edit your own permissions.</h5>
-                                }
+                                
+
                             </div>
                         </div>
                         {userList[0] ?
