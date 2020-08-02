@@ -8,6 +8,7 @@ import createNotification from '../../../components/CheckBox/Notification'
 export default function Stocktake() {
     const [allItems, setAllItems] = useState([])
     const [stockReceive, setstockReceive] = useState([])
+    const [oldItems, setOldItems] = useState([])
     useEffect(() => {
         getAllItems();
     }, [])
@@ -21,32 +22,34 @@ export default function Stocktake() {
         })
     }
 
-    function submitStock() {
-        allItems.forEach((el, index) => {
-            allItems[index].cost = allItems[index].cost / 100;
-            allItems[index].price = allItems[index].price / 100;
-            API.updateItem(allItems[index]);
-        });
-        getAllItems();
+    async function submitStock() {
+        let tempItems = allItems;
         let inputs = document.getElementsByClassName("inpBox");
-       for (let i = 0; i < inputs.length; i++) {
-            inputs[i].value = "";//TODO must reset all inputs so you don't double up on entries
-        };
+        for (let i = 0; i < inputs.length; i++) {
+            let newAmount = parseInt(inputs[i].value); 
+            tempItems[i].stockCount += newAmount;
+             inputs[i].value = "";
+         };
+        for (const item of tempItems) {
+            if (item.stockCount >= 0) {
+            console.log(item);
+            item.cost = item.cost / 100;
+            item.price = item.price / 100;
+            await API.updateItem(item);
+            }
+        }
+        // allItems.forEach(async function (el, index) {
+
+        //     await API.updateItem(allItems[index]);
+        // });
+        getAllItems();
+
 
         createNotification('success', 'Success', 'Stock updated', 3000);
 
     }
 
-    function recStock(event, index) {
-        let newAmount = parseInt(event.target.value);
-        if (typeof newAmount === "number") {
-            let copyStock = stockReceive;
-            copyStock[index].stockCount = copyStock[index].stockCount + newAmount;
-            setstockReceive(copyStock)
-        } else {
-            console.log("NAN")
-        }
-    }
+ 
 
     return (
 
@@ -69,7 +72,7 @@ export default function Stocktake() {
                                     {element.name}
                                 </div>
                                 <div className="col-md-3">
-                                    Receive Stock:<input className="inpBox" type="number" onChange={(event) => recStock(event, index)}></input>
+                                    Receive Stock:<input className="inpBox" type="number"></input>
                                 </div>
                                 <div className="col-md-3">
                                     Inventory Count: {element.stockCount}

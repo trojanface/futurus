@@ -1,10 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './style.css'
 import { store } from '../../GlobalStore'
 import { Redirect } from 'react-router-dom';
 export default function Dashboard() {
     const globalState = useContext(store);
     const [screen, setScreen] = useState(0);
+
+    // useEffect(() => {
+    //    if (globalState.state[])
+    // }, [screen])
 
     switch (screen) {
         case 1:

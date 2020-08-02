@@ -103,7 +103,7 @@ export default function POS() {
         })
       }
       let tempArray = upsellArray;
-      setUpsellArray(shuffle(tempArray).slice(0, 3))
+      setUpsellArray(shuffle(tempArray).slice(0, 1))
       console.log(upsellArray)
     }
   }
@@ -279,14 +279,30 @@ export default function POS() {
             Menu
           </button>
           <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a onClick={() => { setScreen(2) }} className="dropdown-item dropDownMenuHighlight" >User Designer</a>
+            {state.userDesigner ?
+                        <a onClick={() => { setScreen(2) }} className="dropdown-item dropDownMenuHighlight" >User Designer</a>
+          :<></>}
+           {state.itemDesigner ?
             <a onClick={() => { setScreen(3) }} className="dropdown-item dropDownMenuHighlight">Item Designer</a>
+          :<></>}
+           {state.keyLayout ?
             <a onClick={() => { setScreen(4) }} className="dropdown-item dropDownMenuHighlight" >POS Layout Editor</a>
+          :<></>}
+           {state.balances ?
             <a onClick={() => { setScreen(5) }} className="dropdown-item dropDownMenuHighlight">User Balance</a>
+          :<></>}
+           {state.stocktake ?
             <a onClick={() => { setScreen(6) }} className="dropdown-item dropDownMenuHighlight" >Stocktake</a>
+          :<></>}
+           {state.reports ?
             <a onClick={() => { setScreen(7) }} className="dropdown-item dropDownMenuHighlight">Reports</a>
+          :<></>}
+           {state.membership ?
             <a onClick={() => { setScreen(8) }} className="dropdown-item dropDownMenuHighlight" >Membership</a>
+          :<></>}
+           {state.advertising ?
             <a onClick={() => { setScreen(9) }} className="dropdown-item dropDownMenuHighlight">Advertising</a>
+          :<></>}
           </div>
           <button onClick={() => { API.logOut(); setScreen(10) }} className="my-2 my-sm-0 redButton butt10" type="submit">Sign Out</button>
       </nav>
@@ -308,13 +324,13 @@ export default function POS() {
                     return <div key={index} className="col-md-2 centerText">
                       {highlightObj.item === upsellArray[index].prod_id &&
                         <>
-                          <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[element.prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
+                          <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[upsellArray[index].prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
                           <label className="d-block">{element.name}</label>
                         </>
                       }
                       {highlightObj.item !== upsellArray[index].prod_id &&
                         <>
-                          <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[element.prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
+                          <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[upsellArray[index].prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
                           <label className="d-block">{element.name}</label>
                         </>
                       }

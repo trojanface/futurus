@@ -62,8 +62,10 @@ export default {
     return axios.post('/api/items/', {iconPath: userParams.iconPath, upsell: userParams.upsell, name: userParams.name, cost: userParams.cost, price: userParams.price, department: userParams.departments });
   },
   updateItem: function (userParams) {
+    if (userParams.cost != "" && userParams.cost != undefined) {
     userParams.cost = userParams.cost * 100;
     userParams.price = userParams.price * 100;
+    }
     console.log(userParams)
     return axios.put('/api/items/' + userParams.prod_id, {iconPath: userParams.iconPath, upsell: userParams.upsell, stockCount: userParams.stockCount, name: userParams.name, cost: userParams.cost, price: userParams.price, department: userParams.department });
   },
