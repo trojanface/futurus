@@ -43,7 +43,7 @@ export default function Login() {
         }
     }
     if (state != 0) {
-        return <Redirect to='/userdesigner' />
+        return <Redirect to='/dashboard' />
     }
 
     return (

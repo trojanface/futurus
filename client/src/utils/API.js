@@ -83,6 +83,6 @@ export default {
     return axios.get('/api/items/find/' + term);
   },
   getWeather: function (location) {
-    return axios.get('https://api.openweathermap.org/data/2.5/weather?q=adelaide&appid=2a41be6b56e8918bc7efe98c840f4638')
+    return axios.get('/weather')
   }
 }

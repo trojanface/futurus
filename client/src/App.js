@@ -8,6 +8,7 @@ import UserDesigner from './scenes/Dashboard/UserDesigner/UserDesigner';
 import POS from './scenes/POS/POS';
 import Stocktake from './scenes/Dashboard/Stocktake/Stocktake';
 import { StateProvider } from './GlobalStore'
+import Home from './scenes/Dashboard/Home';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
             </Route>
             <Route path="/stocktake">
               <Stocktake />
+            </Route>
+            <Route path="/dashboard">
+              <Home />
             </Route>
             <Route path="/">
               <Login />
