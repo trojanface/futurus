@@ -324,13 +324,13 @@ export default function POS() {
                     return <div key={index} className="col-md-2 centerText">
                       {highlightObj.item === upsellArray[index].prod_id &&
                         <>
-                          <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[upsellArray[index].prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
+                          <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[element.prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
                           <label className="d-block">{element.name}</label>
                         </>
                       }
                       {highlightObj.item !== upsellArray[index].prod_id &&
                         <>
-                          <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[upsellArray[index].prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
+                          <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[element.prod_id].stockCount > 0) { addToTransaction(element.prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
                           <label className="d-block">{element.name}</label>
                         </>
                       }
