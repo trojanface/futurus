@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import API from '../../../utils/API'
-import Dashboard from '../Dashboard'
+import API from '../../utils/API'
+import Dashboard from '../Dashboard/Dashboard'
 import { NotificationContainer } from 'react-notifications'
-import createNotification from '../../../components/CheckBox/Notification'
+import createNotification from '../../components/CheckBox/Notification'
 
 export default function Stocktake() {
     //initialise state and variables

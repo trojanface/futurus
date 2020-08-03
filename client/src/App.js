@@ -3,10 +3,10 @@ import logo from './logo.png';
 import './App.css';
 import Login from './scenes/Login/Login';
 import { Route, Switch, BrowserRouter } from "react-router-dom";
-import ItemDesigner from './scenes/Dashboard/ItemDesigner/ItemDesigner';
-import UserDesigner from './scenes/Dashboard/UserDesigner/UserDesigner';
+import ItemDesigner from './scenes/ItemDesigner/ItemDesigner';
+import UserDesigner from './scenes/UserDesigner/UserDesigner';
 import POS from './scenes/POS/POS';
-import Stocktake from './scenes/Dashboard/Stocktake/Stocktake';
+import Stocktake from './scenes/Stocktake/Stocktake';
 import { StateProvider } from './GlobalStore'
 import Home from './scenes/Dashboard/Home';
 

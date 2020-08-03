@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import './style.css'
-import API from '../../../utils/API'
-import Inputbox from '../../../components/CheckBox/Inputbox'
-import Dashboard from '../Dashboard'
+import API from '../../utils/API'
+import Inputbox from '../../components/CheckBox/Inputbox'
+import Dashboard from '../Dashboard/Dashboard'
 import Togglebutton from './Togglebutton'
-import createNotification from '../../../components/CheckBox/Notification'
+import createNotification from '../../components/CheckBox/Notification'
 import { NotificationContainer } from 'react-notifications'
-import { store } from '../../../GlobalStore'
+import { store } from '../../GlobalStore'
 
 export default function UserDesigner() {
     //initialise state and variables
