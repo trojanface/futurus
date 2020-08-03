@@ -6,22 +6,26 @@ import { Redirect } from 'react-router-dom';
 import Validator from '../../utils/Validator';
 import { NotificationContainer } from 'react-notifications'
 import createNotification from '../../components/CheckBox/Notification';
+import backImage from './assets/futurusbackground.png'
+import logo from './assets/futuruslogowhite.png'
 
 export default function Login() {
-
-
+    //intialisation of state and variables
     const [username, setUsername] = useState("")
     const [userPassword, setUserPassword] = useState("")
     const { state, setState } = useContext(store);
-    // const { dispatch } = globalState;
+
+    //interprets a change in the username input box
     function updateUsername(event) {
         setUsername(event.target.value);
     }
 
+    //interprets a change in the password input box
     function updatePass(event) {
         setUserPassword(event.target.value)
     }
 
+    //sends the user information off for verification and if so then logs the user into the global store and redirects to the dashboard
     function login(event) {
         event.preventDefault();
         if (Validator.isInputEmpty(username) === false && Validator.isInputEmpty(userPassword) === false) {
@@ -43,14 +47,13 @@ export default function Login() {
     }
 
     return (
-        <div>
+        <div style={{height:'100vh', width:'100vw',backgroundPosition: 'center', backgroundSize: 'cover', backgroundImage: `url(${backImage})` }}>
             <NotificationContainer />
             <div className="row no-gutters ">
                 <div className="col-md-4">
                     <div className="row mt-4">
                         <div className="col-md-12">
-                            <h1 className="mainHeading ml-12">Futurus</h1>
-                            <h3 className="subHeading ml-12">The POS of the future</h3>
+                        <img style={{width:'100%'}} src={require('./assets/futuruslogowhite.png')} />
                         </div>
                     </div>
                 </div>

@@ -6,32 +6,36 @@ import { NotificationContainer } from 'react-notifications'
 import createNotification from '../../../components/CheckBox/Notification'
 
 export default function ItemDesigner() {
+  //intialisation of states & variables
   const [departments, setDept] = useState([])
   const [items, setItems] = useState([])
   const [selectedDept, setSelectD] = useState(0)
   const [selectedItem, setSelectI] = useState({})
   const [selected, setSelected] = useState(0)
   const [testState, setTestState] = useState(false)
-  const [allItems, setAllItems] = useState([])
   let newDept = "";
   const [newItem, setNewItem] = useState({ name: "", cost: 0, price: 0, departments: 0, isActive: true, upsell: '', iconPath: '' });
+
+  //load departments on start
   useEffect(() => {
     getDepartments();
   }, [])
 
+  //retrieve departments from database and store in state.
   function getDepartments() {
     API.getDepts().then((res) => {
-
       setDept(res.data);
     }).catch((err) => {
       console.log(err);
     })
   }
 
+  //interpret changes from input boxes
   function itemChange(change) {
     selectedItem[0][change[0].arrayTitle] = change[1]
   }
 
+  //send changes to database
   function submitChanges() {
     API.updateItem(selectedItem[0]).then(() => {
       createNotification('success', 'Success', 'Item updated', 3000)
@@ -42,6 +46,7 @@ export default function ItemDesigner() {
     });
   }
 
+  //deactivate a department in the database
   function deleteDept(index) {
     API.deleteDept(index + 1).then(() => {
       createNotification('success', 'Success', 'Department deleted', 3000)
@@ -50,6 +55,8 @@ export default function ItemDesigner() {
       createNotification('error', 'Error', err, 5000)
     });
   }
+
+  //deactivate an item in the database
   function deleteItem() {
     API.deleteItem(selected).then(() => {
       createNotification('success', 'Success', 'Item deleted', 3000)
@@ -59,6 +66,8 @@ export default function ItemDesigner() {
       createNotification('error', 'Error', err, 5000)
     });
   }
+
+  //retrieve an item from the database
   function retrieveItem(prod_id, index) {
     setSelected(prod_id);
     API.getItem(prod_id).then((res) => {
@@ -69,6 +78,8 @@ export default function ItemDesigner() {
       console.log(err);
     })
   }
+
+  //get all items from the database with a particular department
   function retrieveItems(index) {
     setSelectD(index + 1);
     API.getItems(index).then((res) => {
@@ -78,9 +89,12 @@ export default function ItemDesigner() {
     })
   }
 
+  //interpret a change between selected departments
   function newDeptInput(change) {
     newDept = change[1];
   }
+
+  //add a new department to the database
   function submitNewDept() {
     API.addDept(newDept).then(() => {
       createNotification('success', 'Success', 'Department created', 3000)
@@ -89,23 +103,26 @@ export default function ItemDesigner() {
       createNotification('error', 'Error', err, 5000)
     });
   }
+
+  //add a new item to the database
   function submitNewItem() {
     newItem.departments = selectedDept - 1;
     API.addItem(newItem).then(() => {
       createNotification('success', 'Success', 'Item created', 3000)
-      //console.log("dept -> "+selectedDept)
       retrieveItems(selectedDept - 1)
     }).catch((err) => {
       createNotification('error', 'Error', err, 5000)
     });
   }
+
+  //interpret a change from input box on the new item template
   function newItemChange(change) {
     let tempItem = newItem
     tempItem[change[0].arrayTitle] = change[1]
     setNewItem(tempItem);
   }
-  return (
 
+  return (
     <div className="row no-gutters">
       <NotificationContainer />
       <div className="col-md-3 text-center">
@@ -147,9 +164,9 @@ export default function ItemDesigner() {
                       Upsell Weather: {newItem.upsell}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="upsellMenuButton">
-                    <button onClick={()=>{newItemChange([{arrayTitle: 'upsell'}, '']); setTestState(!testState);}} className="dropdown-item" >None</button>
-                      <button onClick={()=>{newItemChange([{arrayTitle: 'upsell'}, 'hot']); setTestState(!testState);}} className="dropdown-item" >Hot</button>
-                      <button onClick={()=>{newItemChange([{arrayTitle: 'upsell'}, 'cold']); setTestState(!testState);}} className="dropdown-item">Cold</button>
+                      <button onClick={() => { newItemChange([{ arrayTitle: 'upsell' }, '']); setTestState(!testState); }} className="dropdown-item" >None</button>
+                      <button onClick={() => { newItemChange([{ arrayTitle: 'upsell' }, 'hot']); setTestState(!testState); }} className="dropdown-item" >Hot</button>
+                      <button onClick={() => { newItemChange([{ arrayTitle: 'upsell' }, 'cold']); setTestState(!testState); }} className="dropdown-item">Cold</button>
                     </div>
                   </div>
 
@@ -205,9 +222,7 @@ export default function ItemDesigner() {
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       {departments[0] ?
                         departments.map((element, index) => {
-                          //   return <button key={index} onClick={() => {selectedItem[0].department = (index + 1)}} className="dropdown-item" >{element.name}</button>
-
-                          return <button key={index} onClick={() => {
+                            return <button key={index} onClick={() => {
                             let tempArray = selectedItem;
                             tempArray[0].department = (index + 1);
                             setSelectI(tempArray);
@@ -223,9 +238,9 @@ export default function ItemDesigner() {
                       Upsell Weather: {selectedItem[0].upsell}
                     </button>
                     <div className="dropdown-menu" aria-labelledby="upsellMenuButton">
-                    <button onClick={()=>{itemChange([{arrayTitle: 'upsell'}, '']); setTestState(!testState);}} className="dropdown-item" >None</button>
-                      <button onClick={()=>{itemChange([{arrayTitle: 'upsell'}, 'hot']); setTestState(!testState);}} className="dropdown-item" >Hot</button>
-                      <button onClick={()=>{itemChange([{arrayTitle: 'upsell'}, 'cold']); setTestState(!testState);}} className="dropdown-item">Cold</button>
+                      <button onClick={() => { itemChange([{ arrayTitle: 'upsell' }, '']); setTestState(!testState); }} className="dropdown-item" >None</button>
+                      <button onClick={() => { itemChange([{ arrayTitle: 'upsell' }, 'hot']); setTestState(!testState); }} className="dropdown-item" >Hot</button>
+                      <button onClick={() => { itemChange([{ arrayTitle: 'upsell' }, 'cold']); setTestState(!testState); }} className="dropdown-item">Cold</button>
                     </div>
                   </div>
                 </>
@@ -251,4 +266,3 @@ export default function ItemDesigner() {
     </div >
   )
 }
-//TODO Add a save changes button and a delete item button and a delete department button

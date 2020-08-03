@@ -34,10 +34,10 @@ export default function EftModal(props) {
                                         <button className="redButton butt50" data-dismiss="modal">Back</button>
                                     </>
                                 }
-                                {props.toPay ? 
-                                <button className="greenButton butt50" onClick={() => { setstate('Processing...'); setTimeout(() => { setstate('Approved') }, 3000); }}>Trigger Payment (DEMO)</button>
-                           :<></>}
-                                </>
+                                {props.toPay ?
+                                    <button className="greenButton butt50" onClick={() => { setstate('Processing...'); setTimeout(() => { setstate('Approved') }, 3000); }}>Trigger Payment (DEMO)</button>
+                                    : <></>}
+                            </>
                         }
                         {state === 'Approved' &&
                             <>

@@ -31,7 +31,7 @@ export default function POS() {
 
 
   useEffect(() => {
-  
+
 
     API.getDepts().then((res) => {
       setDept(res.data);
@@ -41,16 +41,16 @@ export default function POS() {
         setDeptButtWidth(`col-${Math.round(12 / res.data.length)}`)
       }
       console.log(res.data)
-      
+
       getAllItems();
       return res;
     }).then((res) => {
       getItems(res.data[0].dept_id);
     }).then(() => {
-        if (state === 0) {
-      API.logOut();
-      setScreen(10);
-    }
+      if (state === 0) {
+        API.logOut();
+        setScreen(10);
+      }
     }).catch((err) => {
       console.log(err);
     })
@@ -166,7 +166,7 @@ export default function POS() {
     }).catch((err) => {
       console.log(err);
     })
-  
+
   }
   function getItems(depId) {
     if (allItems.length > 0) {
@@ -183,7 +183,7 @@ export default function POS() {
       }).catch((err) => {
         console.log(err);
       })
-    } 
+    }
   }
 
 
@@ -275,36 +275,36 @@ export default function POS() {
       </div>
 
       <nav className="navbar navbar-expand-lg navbar-light altColor">
-          <button className="mr-auto greenButton butt10 " id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Menu
+        <button className="mr-auto greenButton butt10 " id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
           </button>
-          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-            {state.userDesigner ?
-                        <a onClick={() => { setScreen(2) }} className="dropdown-item dropDownMenuHighlight" >User Designer</a>
-          :<></>}
-           {state.itemDesigner ?
+        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          {state.userDesigner ?
+            <a onClick={() => { setScreen(2) }} className="dropdown-item dropDownMenuHighlight" >User Designer</a>
+            : <></>}
+          {state.itemDesigner ?
             <a onClick={() => { setScreen(3) }} className="dropdown-item dropDownMenuHighlight">Item Designer</a>
-          :<></>}
-           {state.keyLayout ?
+            : <></>}
+          {state.keyLayout ?
             <a onClick={() => { setScreen(4) }} className="dropdown-item dropDownMenuHighlight" >POS Layout Editor</a>
-          :<></>}
-           {state.balances ?
+            : <></>}
+          {state.balances ?
             <a onClick={() => { setScreen(5) }} className="dropdown-item dropDownMenuHighlight">User Balance</a>
-          :<></>}
-           {state.stocktake ?
+            : <></>}
+          {state.stocktake ?
             <a onClick={() => { setScreen(6) }} className="dropdown-item dropDownMenuHighlight" >Stocktake</a>
-          :<></>}
-           {state.reports ?
+            : <></>}
+          {state.reports ?
             <a onClick={() => { setScreen(7) }} className="dropdown-item dropDownMenuHighlight">Reports</a>
-          :<></>}
-           {state.membership ?
+            : <></>}
+          {state.membership ?
             <a onClick={() => { setScreen(8) }} className="dropdown-item dropDownMenuHighlight" >Membership</a>
-          :<></>}
-           {state.advertising ?
+            : <></>}
+          {state.advertising ?
             <a onClick={() => { setScreen(9) }} className="dropdown-item dropDownMenuHighlight">Advertising</a>
-          :<></>}
-          </div>
-          <button onClick={() => { API.logOut(); setScreen(10) }} className="my-2 my-sm-0 redButton butt10" type="submit">Sign Out</button>
+            : <></>}
+        </div>
+        <button onClick={() => { API.logOut(); setScreen(10) }} className="my-2 my-sm-0 redButton butt10" type="submit">Sign Out</button>
       </nav>
       <div className="row no-gutters">
         <div className="col-md-3 whiteBackground">

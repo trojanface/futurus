@@ -8,12 +8,12 @@ export default function Dashboard() {
     const [screen, setScreen] = useState(0);
 
     useEffect(() => {
-       if (globalState.state === 0) {
-           setScreen(10);
-       }
+        if (globalState.state === 0) {
+            setScreen(10);
+        }
     }, [])
 
-    switch (screen) {
+    switch (screen) {//switches between screens based on menu selection
         case 1:
             return <Redirect to='/pos' />
 
@@ -24,23 +24,23 @@ export default function Dashboard() {
             return <Redirect to='/itemdesigner' />
 
         case 4:
-            return <Redirect to='/pos' />
-
+            // return <Redirect to='/pos' />
+            break;
         case 5:
-            return <Redirect to='/pos' />
-
+            // return <Redirect to='/pos' />
+            break;
         case 6:
             return <Redirect to='/stocktake' />
 
         case 7:
-            return <Redirect to='/pos' />
-
+            // return <Redirect to='/pos' />
+            break;
         case 8:
-            return <Redirect to='/pos' />
-
+            // return <Redirect to='/pos' />
+            break;
         case 9:
-            return <Redirect to='/pos' />
-
+            // return <Redirect to='/pos' />
+            break;
         case 10:
             console.log("logging out")
             API.logOut();
@@ -111,4 +111,3 @@ export default function Dashboard() {
         </div>
     )
 }
-//TODO needs to query upon login to check the users permissions and then load the appropriate menus

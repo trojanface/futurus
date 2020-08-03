@@ -51,10 +51,10 @@ export default function SplitModal(props) {
                                                 <button className="greenButton butt25 mt-2" onClick={() => { setscreen(2) }}>Eft</button>
                                             </>
                                         }
-                                         {splitpay > (props.toPay - amtPaid) &&
+                                        {splitpay > (props.toPay - amtPaid) &&
                                             <>
                                                 <button className="greenButton butt25 mr-3 mt-2" onClick={() => { createNotification('error', 'Error', 'Amount must be leas than total amount remaining', 3000) }}>Cash</button>
-                                        <button className="greenButton butt25 mt-2" onClick={() => { createNotification('error', 'Error', 'Amount must be leas than total amount remaining', 3000) }}>Eft</button>
+                                                <button className="greenButton butt25 mt-2" onClick={() => { createNotification('error', 'Error', 'Amount must be leas than total amount remaining', 3000) }}>Eft</button>
                                             </>
                                         }
                                     </>
@@ -76,14 +76,14 @@ export default function SplitModal(props) {
                         </div>
                         <div className="modal-footer">
                             {amtPaid == 0 &&
-                                <button className="redButton butt50" onClick={()=>{setSplitPay(0)}} data-dismiss="modal">Back</button>
+                                <button className="redButton butt50" onClick={() => { setSplitPay(0) }} data-dismiss="modal">Back</button>
                             }
                             {props.toPay > 0 &&
                                 amtPaid >= props.toPay &&
-                                <button onClick={() => { 
+                                <button onClick={() => {
                                     setAmtPaid(0)
                                     setSplitPay(0)
-                                    props.subTrans(); 
+                                    props.subTrans();
                                 }} className="greenButton butt50" data-dismiss="modal">Finalise Transaction</button>
 
                             }

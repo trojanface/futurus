@@ -1,14 +1,14 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const Departments = sequelize.define("departments", {
         dept_id: {
             type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
         },
         name: {
             type: DataTypes.STRING,
-        allowNull: false
+            allowNull: false
         },
         isActive: {
             type: DataTypes.BOOLEAN,

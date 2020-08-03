@@ -2,17 +2,17 @@ var bcrypt = require("bcryptjs");
 // let passport = require("../config/passport.js");
 
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const Users = sequelize.define("users", {
         user_id: {
             type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
         },
-          userName: {
+        userName: {
             type: DataTypes.STRING,
-        allowNull: false
+            allowNull: false
         },
         firstName: {
             type: DataTypes.STRING,
@@ -25,63 +25,63 @@ module.exports = function(sequelize, DataTypes) {
         },
         password: {
             type: DataTypes.STRING,
-        allowNull: false
+            allowNull: false
         },
         adminLevel: {
             type: DataTypes.INTEGER,
-        allowNull: false
+            allowNull: false
         },
         totTime: {
             type: DataTypes.INTEGER,
-        defaultValue: 0
+            defaultValue: 0
         },
         totalTrans: {
             type: DataTypes.INTEGER,
-        defaultValue: 0
+            defaultValue: 0
         },
         POS: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         userDesigner: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         itemDesigner: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         keyLayout: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         stocktake: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         reports: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         membership: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         advertising: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         refunds: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         cashDrops: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         balances: {
             type: DataTypes.BOOLEAN,
-        allowNull: false
+            allowNull: false
         },
         isActive: {
             type: DataTypes.BOOLEAN,
@@ -89,29 +89,25 @@ module.exports = function(sequelize, DataTypes) {
         }
     })
 
-    Users.prototype.validPassword = function(password) {
+    Users.prototype.validPassword = function (password) {
         if (this.password === "futurus10") {
             hashedpassword = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10), null);
             return bcrypt.compareSync(password, hashedpassword);
         } else {
             return bcrypt.compareSync(password, this.password);
         }
-    
-};
-// before a User is created, their password will be automatically hashed
-    Users.addHook("beforeCreate", function(users) {
-    users.password = bcrypt.hashSync(users.password, bcrypt.genSaltSync(10), null);
+
+    };
+    // before a User is created, their password will be automatically hashed
+    Users.addHook("beforeCreate", function (users) {
+        users.password = bcrypt.hashSync(users.password, bcrypt.genSaltSync(10), null);
     });
-    Users.addHook("beforeBulkUpdate", function(users) {//this screws up updating the user when not adding a password perhaps because its expecting a password upon every update.
-        if (users.attributes.password){
-        users.attributes.password = bcrypt.hashSync(users.attributes.password, bcrypt.genSaltSync(10), null);
-    }
-        });
-    //     Users.associate = models => {
-    //     Users.hasMany(models.orders, {
-    //         onDelete: "cascade"
-    //     })
-    // }
+    Users.addHook("beforeBulkUpdate", function (users) {
+        if (users.attributes.password) {
+            users.attributes.password = bcrypt.hashSync(users.attributes.password, bcrypt.genSaltSync(10), null);
+        }
+    });
+
 
     return Users;
 }

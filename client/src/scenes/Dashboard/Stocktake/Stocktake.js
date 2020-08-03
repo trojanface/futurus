@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import Inputbox from '../../../components/CheckBox/Inputbox'
 import API from '../../../utils/API'
 import Dashboard from '../Dashboard'
 import { NotificationContainer } from 'react-notifications'
 import createNotification from '../../../components/CheckBox/Notification'
 
 export default function Stocktake() {
+    //initialise state and variables
     const [allItems, setAllItems] = useState([])
     const [stockReceive, setstockReceive] = useState([])
     const [oldItems, setOldItems] = useState([])
+
+    //get all items from database upon load
     useEffect(() => {
         getAllItems();
     }, [])
 
+    //retrieves all items from the database
     function getAllItems() {
         API.getAllItems().then((res) => {
             setAllItems(res.data);
@@ -22,37 +25,30 @@ export default function Stocktake() {
         })
     }
 
+    //loops through each item and checks if it has been changed, if it has then it will send the update to the database
     async function submitStock() {
         let tempItems = allItems;
         let inputs = document.getElementsByClassName("inpBox");
         for (let i = 0; i < inputs.length; i++) {
-            let newAmount = parseInt(inputs[i].value); 
+            let newAmount = parseInt(inputs[i].value);
             tempItems[i].stockCount += newAmount;
-             inputs[i].value = "";
-         };
+            inputs[i].value = "";
+        };
         for (const item of tempItems) {
             if (item.stockCount >= 0) {
-            console.log(item);
-            item.cost = item.cost / 100;
-            item.price = item.price / 100;
-            await API.updateItem(item);
+                console.log(item);
+                item.cost = item.cost / 100;
+                item.price = item.price / 100;
+                await API.updateItem(item);
             }
         }
-        // allItems.forEach(async function (el, index) {
-
-        //     await API.updateItem(allItems[index]);
-        // });
         getAllItems();
-
-
         createNotification('success', 'Success', 'Stock updated', 3000);
-
     }
 
- 
+
 
     return (
-
         <div className="row no-gutters">
             <NotificationContainer />
             <div className="col-md-3 text-center">
@@ -80,15 +76,14 @@ export default function Stocktake() {
                             </div>
                         })
                         : <></>}
-<div className="row">
-                    <div className="col-md-6">
-                        <button className="greenButton butt50 mtb-2" onClick={submitStock}>Save Changes</button>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <button className="greenButton butt50 mtb-2" onClick={submitStock}>Save Changes</button>
+                        </div>
                     </div>
                 </div>
-                </div>
-                
+
             </div>
         </div>
     )
 }
-//TODO Add a save changes button and a delete item button and a delete department button

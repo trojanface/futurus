@@ -7,9 +7,9 @@ import Togglebutton from './Togglebutton'
 import createNotification from '../../../components/CheckBox/Notification'
 import { NotificationContainer } from 'react-notifications'
 import { store } from '../../../GlobalStore'
-import Validator from '../../../utils/Validator'
 
 export default function UserDesigner() {
+    //initialise state and variables
     const [userList, setUserList] = useState([])
     const [selected, setSelect] = useState(0)
     const [testState, setTestState] = useState(false)
@@ -26,10 +26,13 @@ export default function UserDesigner() {
         userDesigner: false, password: "", adminLevel: 1, isActive: true, totTime: 0, totalTrans: 0,
         passwordConf: ""
     });
+
+    //upon load get users from database
     useEffect(() => {
         getUsers();
     }, [])
 
+    //get users from database
     function getUsers() {
         API.getUsers().then((res) => {
             setUserList(res.data);
@@ -38,6 +41,7 @@ export default function UserDesigner() {
         })
     }
 
+    //checks the password change conditions have been met
     function userChange(change) {
         switch (change[0].arrayTitle) {
             case 'password1':
@@ -56,6 +60,7 @@ export default function UserDesigner() {
         }
     }
 
+    //checks and updates the password
     function checkPassword() {
         if (password2.length > 0) {
             if (password2 === password3) {
@@ -71,13 +76,15 @@ export default function UserDesigner() {
 
     }
 
+    //adds the changed user to the database
     function submitChanges() {
-
         API.updateUser(userList[selected]).then(() => {
             getUsers();
             createNotification('success', 'Success', 'User updated', 3000)
         }).catch((err) => { console.log(err) });
     }
+
+    //deletes a user from the database
     function deleteUser() {
         if (selected != 0) {
             API.deleteUser(userList[selected].user_id).then(() => {
@@ -87,6 +94,8 @@ export default function UserDesigner() {
             }).catch((err) => { console.log(err) });
         }
     }
+
+    //creates a new user in the database
     function submitNewUser() {
         if (newUser.password === newUser.passwordConf) {
             console.log(newUser)
@@ -101,13 +110,14 @@ export default function UserDesigner() {
 
     }
 
-
+    //interprets input box changes for a new user
     function newUserInput(change) {
         let tempUser = newUser;
         tempUser[change[0].arrayTitle] = change[1]
         setNewUser(tempUser)
     }
 
+    //interprets toggle button changes for a current user.
     function toggleElement(selection, element) {
         let tempList = userList;
         tempList[selection][element] = !tempList[selection][element];
@@ -116,15 +126,13 @@ export default function UserDesigner() {
 
     }
 
-
+    //interprets toggle button changes for a new user
     function toggleNewElement(selection, element) {
 
         let tempUser = newUser;
         tempUser[element] = !tempUser[element];
         setNewUser(tempUser);
         setTestState(!testState)
-
-        // element = !element;
     }
 
     return (
@@ -158,7 +166,6 @@ export default function UserDesigner() {
                                                     </div>
                                                     <div className="col-md-8 text-right">
                                                         <Togglebutton toggleFunc={toggleNewElement} storedElement={element} storedSelection={-1} storedValue={newUser[element]} />
-                                                        {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={newUser[element]} ></input> */}
                                                     </div>
                                                 </div>
 
@@ -204,37 +211,36 @@ export default function UserDesigner() {
                                 </ul>
                             </div>
                             <div className="col-md-8 whiteBackground blueHighlight pt-4">
-                             
 
-                                    <ul>
 
-                                        {userList[0] ? <div>
-                                            <h5>{userList[0] ? `${userList[selected].firstName} ${userList[selected].lastName}` : ""}</h5>
-                                            <Inputbox arrayTitle="username" changeValue={userChange} title="Username" placehold={userList[selected].userName} />
-                                            <Inputbox arrayTitle="firstName" changeValue={userChange} title="First Name" placehold={userList[selected].firstName} />
-                                            <Inputbox arrayTitle="lastName" changeValue={userChange} title="Last Name" placehold={userList[selected].lastName} />
-                                            <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
-                                            <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
-                                            <h5>Permissions</h5>
-                                            {(state.user_id - 1) != selected &&
-                                                permissions.map((element, index) => {
-                                                    return <div key={index} className="row">
-                                                        <div className="col-md-4">
-                                                            {permissionsText[index]}
-                                                        </div>
-                                                        <div className="col-md-7">
-                                                            <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
-                                                            {/* <input type="checkbox" onChange={(event) => changeVal(event, index)} checked={userList[selected][element]} ></input> */}
-                                                        </div>
+                                <ul>
+
+                                    {userList[0] ? <div>
+                                        <h5>{userList[0] ? `${userList[selected].firstName} ${userList[selected].lastName}` : ""}</h5>
+                                        <Inputbox arrayTitle="username" changeValue={userChange} title="Username" placehold={userList[selected].userName} />
+                                        <Inputbox arrayTitle="firstName" changeValue={userChange} title="First Name" placehold={userList[selected].firstName} />
+                                        <Inputbox arrayTitle="lastName" changeValue={userChange} title="Last Name" placehold={userList[selected].lastName} />
+                                        <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
+                                        <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
+                                        <h5>Permissions</h5>
+                                        {(state.user_id - 1) != selected &&
+                                            permissions.map((element, index) => {
+                                                return <div key={index} className="row">
+                                                    <div className="col-md-4">
+                                                        {permissionsText[index]}
                                                     </div>
+                                                    <div className="col-md-7">
+                                                        <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
+                                                    </div>
+                                                </div>
 
-                                                })}
-                                            {(state.user_id - 1) === selected &&
-                                                <h5>You cannot edit your own permissions.</h5>
-                                            }
-                                        </div> : "Please select a user"}
-                                    </ul>
-                                
+                                            })}
+                                        {(state.user_id - 1) === selected &&
+                                            <h5>You cannot edit your own permissions.</h5>
+                                        }
+                                    </div> : "Please select a user"}
+                                </ul>
+
 
                             </div>
                         </div>
@@ -257,4 +263,3 @@ export default function UserDesigner() {
         </>
     )
 }
-//TODO figure out toggle buttons add delete user functionality.

@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import note100 from './assets/100.png';
+import note50 from './assets/50.png';
+import note20 from './assets/20.png';
+import note10 from './assets/10.png';
+import note5 from './assets/5.png';
+import coin2 from './assets/2.png';
+import coin1 from './assets/1.png';
+import coin50 from './assets/50c.png';
+import coin20 from './assets/20c.png';
+import coin10 from './assets/10c.png';
+import coin05 from './assets/5c.png';
 
 export default function CashModal(props) {
     const cashValues = [100, 50, 20, 10, 5, 2, 1, .50, .20, .10, .05]
-    const cashPaths = [`https://banknotes.rba.gov.au/banknote-features/images/new-hundred/new-hundred-banknote.jpg`,
-        `https://banknotes.rba.gov.au/banknote-features/images/new-fifty/new-fifty-banknote-flipped.jpg`,
-        `https://banknotes.rba.gov.au/banknote-features/images/new-twenty/new-twenty-banknote.jpg`,
-        `https://banknotes.rba.gov.au/banknote-features/images/new-ten/new-ten-banknote.jpg`,
-        `https://banknotes.rba.gov.au/assets/images/australias-banknotes/banknotes-in-circulation/five-dollar-note-ngb.jpg`,
-        `https://www.ramint.gov.au/sites/default/files/2019/Corporate_Website/Misc/large_australia_standard_rev_2_albr_circ_hh.jpg`,
-        `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpl9lyU7Ur2LoMAVXvFrDeUJ0ScpoJUCqQxN8nUCr2crguezM8BscYRtyJ4WuNQyBCnhALdgUp&usqp=CAc`,
-        `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR3yFDFiiAF-HstSWfOMCn1Dc5uClWqPWdsgQ&usqp=CAU`,
-        `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSeldtPMMKKeXyC8_d5mnuwy8kyk42E4SQqgg&usqp=CAU`,
-        `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsw4j1ctOC_FEbF1zuu-Z22rNCE-LzVfcyyjIWPYTP9Fza7aaNRytxzMJUoNveTGuaP6ab6nTJ&usqp=CAc`,
-        `https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSlhrrPbtV4_71TPZ2-41OFkz4Yui3YM8J7xS9Tb5w16cc59h5ROowRWDEG9g&usqp=CAc`
+    const cashPaths = [note100,
+        note50,
+        note20,
+        note10,
+        note5,
+       coin2,
+       coin1,
+        coin50,
+        coin20,
+        coin10,
+        coin05
     ];
     const [paid, setPaid] = useState(0);
     const [fullyPaid, setFullyPaid] = useState(false);

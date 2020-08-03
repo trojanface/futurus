@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+//All client-side api calls
 export default {
   login: function (user) {
     return axios.post('/auth/local', { username: user.username, password: user.userPassword })
@@ -59,15 +61,15 @@ export default {
     userParams.price = userParams.price * 100;
     userParams.departments = userParams.departments + 1;
     console.log(userParams)
-    return axios.post('/api/items/', {iconPath: userParams.iconPath, upsell: userParams.upsell, name: userParams.name, cost: userParams.cost, price: userParams.price, department: userParams.departments });
+    return axios.post('/api/items/', { iconPath: userParams.iconPath, upsell: userParams.upsell, name: userParams.name, cost: userParams.cost, price: userParams.price, department: userParams.departments });
   },
   updateItem: function (userParams) {
     if (userParams.cost != "" && userParams.cost != undefined) {
-    userParams.cost = userParams.cost * 100;
-    userParams.price = userParams.price * 100;
+      userParams.cost = userParams.cost * 100;
+      userParams.price = userParams.price * 100;
     }
     console.log(userParams)
-    return axios.put('/api/items/' + userParams.prod_id, {iconPath: userParams.iconPath, upsell: userParams.upsell, stockCount: userParams.stockCount, name: userParams.name, cost: userParams.cost, price: userParams.price, department: userParams.department });
+    return axios.put('/api/items/' + userParams.prod_id, { iconPath: userParams.iconPath, upsell: userParams.upsell, stockCount: userParams.stockCount, name: userParams.name, cost: userParams.cost, price: userParams.price, department: userParams.department });
   },
   addTrans: function (userParams) {
     console.log(userParams)

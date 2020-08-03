@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 import Login from './scenes/Login/Login';
 import { Route, Switch, BrowserRouter } from "react-router-dom";

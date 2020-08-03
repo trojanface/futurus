@@ -1,14 +1,14 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const Inventory = sequelize.define("inventory", {
         inv_id: {
             type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
+            allowNull: false,
+            primaryKey: true,
+            autoIncrement: true
         },
         productType: {
             type: DataTypes.INTEGER,
-        allowNull: false
+            allowNull: false
         },
         transactionNum: {
             type: DataTypes.INTEGER

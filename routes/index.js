@@ -15,7 +15,7 @@ router.post('/auth/local', passport.authenticate("local"), function (req, res) {
   res.json(req.user);//returns the user from the authenticate function
 });
 
-router.use(function(req, res) {
+router.use(function(req, res) {//catch all - return the react app
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 

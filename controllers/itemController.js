@@ -1,10 +1,10 @@
 const db = require("../models");
 const { sequelize } = require("../models");
 
-// Defining methods for the userController
+// Defining methods for the itemController
 module.exports = {
   query: function (req, res) {
-    if (req.user) {
+    if (req.user) {//checking if user is validated
       db.products.findAll({
         where: {
           name: req.params.query,
@@ -20,7 +20,7 @@ module.exports = {
     }
   },
   find: function (req, res) {
-    if (req.user) {
+    if (req.user) {//checking if user is validated
       db.products.findAll({
         where: {
           prod_id: req.params.id,
@@ -36,7 +36,7 @@ module.exports = {
     }
   },
   findAllActive: function (req, res) {
-    if (req.user) {
+    if (req.user) {//checking if user is validated
       db.products.findAll({
         where: {
           isActive: true
@@ -53,7 +53,7 @@ module.exports = {
     }
   },
   findAllWithDep: function (req, res) {
-    if (req.user) {
+    if (req.user) {//checking if user is validated
       db.products.findAll({
         where: {
           department: req.params.id,
@@ -69,8 +69,8 @@ module.exports = {
     }
   },
   delete: function (req, res) {
-    if (req.user) {
-      return sequelize.transaction(function (dbTransaction) {
+    if (req.user) {//checking if user is validated
+      return sequelize.transaction(function (dbTransaction) {//placing sql query in transaction
         return db.products
           .update({ isActive: false }, {
             where: {
@@ -84,8 +84,8 @@ module.exports = {
     }
   },
   update: function (req, res) {
-    if (req.user) {
-      return sequelize.transaction(function (dbTransaction) {
+    if (req.user) {//checking if user is validated
+      return sequelize.transaction(function (dbTransaction) {//placing sql query in transaction
         return db.products
           .update(req.body, {
             where: {
@@ -99,8 +99,8 @@ module.exports = {
     }
   },
   create: function (req, res) {
-    if (req.user) {
-      return sequelize.transaction(function (dbTransaction) {
+    if (req.user) {//checking if user is validated
+      return sequelize.transaction(function (dbTransaction) {//placing sql query in transaction
         return db.products
           .create(req.body, { transaction: dbTransaction })
           .then(dbModel => res.json(dbModel))
