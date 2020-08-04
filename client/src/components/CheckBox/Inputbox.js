@@ -15,7 +15,7 @@ export default function Inputbox(props) {
                 </label>
             </div>
             <div className="col-md-8">
-                <input type={props.type ? "password" : "text"} value={textVal} onChange={handleChange} placeholder={props.placehold}></input>
+                <input type={props.type ? props.type : "text"} value={textVal} onChange={handleChange} placeholder={props.placehold}></input>
             </div>
         </div>
     )

@@ -12,22 +12,27 @@ import coin10 from './assets/10c.png';
 import coin05 from './assets/5c.png';
 
 export default function CashModal(props) {
+    //declare the coin images in an array and their values
     const cashValues = [100, 50, 20, 10, 5, 2, 1, .50, .20, .10, .05]
     const cashPaths = [note100,
         note50,
         note20,
         note10,
         note5,
-       coin2,
-       coin1,
+        coin2,
+        coin1,
         coin50,
         coin20,
         coin10,
         coin05
     ];
+
+    //initialise states
     const [paid, setPaid] = useState(0);
     const [fullyPaid, setFullyPaid] = useState(false);
     const [displayVar, setDisplay] = useState(``)
+
+    //update the amount left to pay and the change.
     useEffect(() => {
         if (paid != 0) {
             if (paid < props.toPay) {
@@ -40,7 +45,7 @@ export default function CashModal(props) {
         }
     }, [, paid, props.toPay])
 
-
+    //set the amount left to pay
     function calculate(payVal) {
         setPaid(paid + payVal);
     }

@@ -12,6 +12,7 @@ import { Redirect } from 'react-router-dom'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function POS() {
+  //declaration of state and variables
   const { state, setState } = useContext(store);
   const [departments, setDept] = useState([])
   const [deptButtWidth, setDeptButtWidth] = useState(`col-12`)
@@ -29,10 +30,10 @@ export default function POS() {
   const [temperature, setTemperature] = useState(0)
   const [upsellArray, setUpsellArray] = useState([])
 
-
+  //upon load retrieve all departments and set the width of the department columns
+  //then get all items and all items that match with the current department
+  //if the global state cannot be accessed then log the user out.
   useEffect(() => {
-
-
     API.getDepts().then((res) => {
       setDept(res.data);
       if (res.data.length > 6) {
@@ -57,13 +58,14 @@ export default function POS() {
 
   }, [])
 
+  //if the voice recognition model has finished recieving information then trigger search function
   useEffect(() => {
     if (finalTranscript != '' && listening === false) {
       searchForItem();
-
     }
   }, [listening])
 
+  //search the database for products that fit into the correct weather profile for the current temperature
   function findUpsells(temp) {
     if (allItems.length != 0) {
       if (upsellArray.length != 0) {
@@ -108,6 +110,7 @@ export default function POS() {
     }
   }
 
+  //shuffle an array
   function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -116,6 +119,7 @@ export default function POS() {
     return a;
   }
 
+  //empty the transaction array and reset
   function resetTrans() {
     getAllItems();
     setHighlightObj({ dep: -1, item: -1 })
@@ -125,6 +129,7 @@ export default function POS() {
     setTotal(0)
   }
 
+  //send the transaction to the database.
   function submitTrans() {
     if (transaction.length != 0) {
       let newState = state;
@@ -151,6 +156,7 @@ export default function POS() {
     }
   }
 
+  //retrieve all the items in the database
   function getAllItems() {
     if (allItems.length === 0) {
       API.getWeather().then((res) => {
@@ -168,6 +174,8 @@ export default function POS() {
     })
 
   }
+
+  //retrieve all the items in the database in the supplied department
   function getItems(depId) {
     if (allItems.length > 0) {
       let tempArray = [];
@@ -186,7 +194,7 @@ export default function POS() {
     }
   }
 
-
+  //add the selected product to the transaction array
   function addToTransaction(additem) {
     findUpsells(temperature)
     console.log(additem)
@@ -196,10 +204,13 @@ export default function POS() {
     setTotal(total + allItems[additem - 1].price / 100);
 
   }
+
+  //interpret changes in the search field
   function handleSearch(event) {
     setSearchVal(event.target.value)
   }
 
+  //search for an item based upon name
   function searchForItem(event) {
     if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
       event.preventDefault();
@@ -224,6 +235,7 @@ export default function POS() {
 
   }
 
+  //if the user has selected a different screen navigate to it
   switch (screen) {
     case 1:
       return <Redirect to='/pos' />
@@ -324,13 +336,13 @@ export default function POS() {
                     return <div key={index} className="col-md-2 centerText">
                       {highlightObj.item === upsellArray[index].prod_id &&
                         <>
-                          <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { addToTransaction(element.prod_id)  }}></button>
+                          <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { addToTransaction(element.prod_id) }}></button>
                           <label className="d-block">{element.name}</label>
                         </>
                       }
                       {highlightObj.item !== upsellArray[index].prod_id &&
                         <>
-                          <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => {addToTransaction(element.prod_id)  }}></button>
+                          <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { addToTransaction(element.prod_id) }}></button>
                           <label className="d-block">{element.name}</label>
                         </>
                       }

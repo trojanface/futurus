@@ -3,7 +3,7 @@ import './style.css'
 import { store } from '../../GlobalStore'
 import { Redirect } from 'react-router-dom';
 import API from '../../utils/API';
-export default function Dashboard() {
+export default function Dashboard(props) {
     const globalState = useContext(store);
     const [screen, setScreen] = useState(0);
 
@@ -15,14 +15,22 @@ export default function Dashboard() {
 
     switch (screen) {//switches between screens based on menu selection
         case 1:
+
             return <Redirect to='/pos' />
 
+
         case 2:
-            return <Redirect to='/userdesigner' />
-
+            if (props.screen != screen) {
+                return <Redirect to='/userdesigner' />
+            } else {
+                break;
+            }
         case 3:
-            return <Redirect to='/itemdesigner' />
-
+            if (props.screen != screen) {
+                return <Redirect to='/itemdesigner' />
+            } else {
+                break;
+            }
         case 4:
             // return <Redirect to='/pos' />
             break;
@@ -30,11 +38,17 @@ export default function Dashboard() {
             // return <Redirect to='/pos' />
             break;
         case 6:
-            return <Redirect to='/stocktake' />
-
+            if (props.screen != screen) {
+                return <Redirect to='/stocktake' />
+            } else {
+                break;
+            }
         case 7:
-            // return <Redirect to='/pos' />
+            if (props.screen != screen) {
+            return <Redirect to='/reports' />
+        } else {
             break;
+        }
         case 8:
             // return <Redirect to='/pos' />
             break;

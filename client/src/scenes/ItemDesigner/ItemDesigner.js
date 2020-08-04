@@ -126,7 +126,7 @@ export default function ItemDesigner() {
     <div className="row no-gutters">
       <NotificationContainer />
       <div className="col-md-3 text-center">
-        <Dashboard />
+        <Dashboard screen='3'/>
       </div>
       <div className="col-md-9 d-flex justify-content-center">
         <div className="container">

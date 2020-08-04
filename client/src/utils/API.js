@@ -84,5 +84,9 @@ export default {
   },
   getWeather: function (location) {
     return axios.get('/weather')
+  },
+  getTransactions: function (userParams) {
+    console.log(userParams)
+    return axios.get('/api/trans/?start='+ userParams.startDate +`&end=`+ userParams.endDate)
   }
 }

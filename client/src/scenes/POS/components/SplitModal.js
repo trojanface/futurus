@@ -6,11 +6,12 @@ import createNotification from '../../../components/CheckBox/Notification';
 
 
 export default function SplitModal(props) {
+    //initialise states
     const [splitpay, setSplitPay] = useState(0.00);
     const [screen, setscreen] = useState(0)
     const [amtPaid, setAmtPaid] = useState(0)
 
-
+    //return to split menu and update the amounts paid and to pay
     function submitTrans() {
         setscreen(0)
         setAmtPaid(amtPaid + splitpay);

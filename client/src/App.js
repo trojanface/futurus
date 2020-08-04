@@ -9,6 +9,7 @@ import POS from './scenes/POS/POS';
 import Stocktake from './scenes/Stocktake/Stocktake';
 import { StateProvider } from './GlobalStore'
 import Home from './scenes/Dashboard/Home';
+import Reports from './scenes/Reports/Reports';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path="/dashboard">
               <Home />
+            </Route>
+            <Route path="/reports">
+              <Reports />
             </Route>
             <Route path="/">
               <Login />

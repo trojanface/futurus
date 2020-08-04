@@ -140,7 +140,7 @@ export default function UserDesigner() {
             <NotificationContainer />
             <div className="row no-gutters">
                 <div className="col-md-3 text-center">
-                    <Dashboard />
+                    <Dashboard screen='2'/>
                 </div>
                 <div className="col-md-9 d-flex justify-content-center">
                     <div className="container">

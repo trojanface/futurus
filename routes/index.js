@@ -13,7 +13,7 @@ router.get("/logout", function (req, res) {//Logs out from the current passport 
   res.redirect("/");
 });
 
-router.get("/weather", function (req, res) {//Logs out from the current passport session
+router.get("/weather", function (req, res) {//contacts the open weather api this is happening on the back end to protect the api key
   axios.get(`https://api.openweathermap.org/data/2.5/weather?q=adelaide&appid=${process.env.WEATHERID}`)
   .then(dbModel => {
    res.json(dbModel.data)
