@@ -16,7 +16,10 @@ Futurus Point of Sale system is a tech demo of my skills in the MERN stack and u
 7. License
 8. Contributors
 9. Profile
-![A screenshot of Futurus Point of Sale](e)
+
+![A screenshot of Futurus Point of Sale](screen1.png)
+
+![A screenshot of Futurus Point of Sale](screen2.png)
 
 ## Link to Deployed App
 https://futurus-pos.herokuapp.com/
