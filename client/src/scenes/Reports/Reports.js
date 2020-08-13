@@ -6,6 +6,7 @@ import createNotification from '../../components/CheckBox/Notification'
 import Inputbox from '../../components/CheckBox/Inputbox'
 import Moment from 'moment'
 import ReportBody from './Components/ReportBody'
+import TitleBar from '../Dashboard/TitleBar'
 
 export default function Reports() {
     const [time, setTime] = useState({ startDate: '', endDate: '', startTime: '', endTime: '' })
@@ -81,15 +82,18 @@ export default function Reports() {
 
 
     return (
+        <div>
+            <TitleBar />
+        
         <div className="row no-gutters">
             <NotificationContainer />
             <div className="col-md-3 text-center">
                 <Dashboard screen='7' />
             </div>
-            <div className="col-md-9 d-flex justify-content-center">
+            <div className="col-md-9 d-flex justify-content-center  contentContainer fillVertSpace">
                 <div className="container">
-                    <div className="row blueBackground ">
-                        <div className="col-md-4 whiteBackground blueHighlight pt-4">
+                    <div className="row blueHighlight ">
+                        <div className="col-md-4 whiteBackground  borderRightLGrey pt-4">
                             <h5>Reports</h5>
                             <ul className="noStyle">
                                 <li>
@@ -110,16 +114,18 @@ export default function Reports() {
                                 </li>
                             </ul>
                         </div>
-                        <div className="col-md-8 whiteBackground blueHighlight pt-4">
+                        <div className="col-md-8 whiteBackground  pt-4">
                             {selRep === 0 &&
                                 <h5>Transaction Report</h5>}
                             <Inputbox type='date' arrayTitle="startDate" changeValue={newTimeInput} title="Start Date" placehold="dd/mm/yyyy" />
                             <Inputbox type='date' arrayTitle="endDate" changeValue={newTimeInput} title="End Date" placehold="dd/mm/yyyy" />
                             <Inputbox type='time' arrayTitle="startTime" changeValue={newTimeInput} title="Start Time" placehold="hh:mm" />
                             <Inputbox type='time' arrayTitle="endTime" changeValue={newTimeInput} title="End Time" placehold="hh:mm" />
+                            <div className="pt-3 pb-3">
                             <button className="greenButton" onClick={() => { reportQuery() }}>Fetch Report</button>
+                            </div>
                             <div className="dropdown-divider"></div>
-                            {repList[0] !== null &&
+                            {repList.length !== 0 &&
                             <ReportBody resArray={repList} setRepList={setRepList} createItemList={createItemList} userList={userList}/>
                             }
                         </div>
@@ -127,6 +133,7 @@ export default function Reports() {
                 </div>
 
             </div>
+        </div>
         </div>
     )
 }

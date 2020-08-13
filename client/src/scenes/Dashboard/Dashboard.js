@@ -65,9 +65,9 @@ export default function Dashboard(props) {
             break;
     }
     return (
-        <div>
+        <div className="borderRight fillVertSpace">
 
-            <h1 className="mainHeading">Futurus</h1>
+            
             <h5 className="smallSubText pt-12">Welcome {globalState.state.firstName}</h5>
             <ul className="noStyle">
                 {globalState.state.POS ?

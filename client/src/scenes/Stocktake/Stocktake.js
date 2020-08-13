@@ -3,6 +3,7 @@ import API from '../../utils/API'
 import Dashboard from '../Dashboard/Dashboard'
 import { NotificationContainer } from 'react-notifications'
 import createNotification from '../../components/CheckBox/Notification'
+import TitleBar from '../Dashboard/TitleBar'
 
 export default function Stocktake() {
     //initialise state and variables
@@ -49,14 +50,17 @@ export default function Stocktake() {
 
 
     return (
+        <div>
+            <TitleBar />
+      
         <div className="row no-gutters">
             <NotificationContainer />
             <div className="col-md-3 text-center">
                 <Dashboard screen='6'/>
             </div>
-            <div className="col-md-9 d-flex justify-content-center">
-                <div className="container blueBackground">
-                    {allItems[0] ? <div className="row pt-12">
+            <div className="col-md-9 d-flex justify-content-center  contentContainer fillVertSpace">
+                <div className="container whiteBackground">
+                    {allItems[0] ? <div className="row pt-4">
                         <div className="col-md-12">
                             <h3>Stock</h3>
                         </div>
@@ -82,7 +86,7 @@ export default function Stocktake() {
                         </div>
                     </div>
                 </div>
-
+                </div>
             </div>
         </div>
     )

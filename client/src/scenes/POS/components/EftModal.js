@@ -12,7 +12,7 @@ export default function EftModal(props) {
                         <div className="row no-gutters">
                             {state}
                         </div>
-                        <div className="row no-gutters  whiteBackground blueHighlight">
+                        <div className="row no-gutters  whiteBackground ">
                             <div className="col-md-12 pl-2">
                                 TOTAL: ${props.toPay.toFixed(2)}
                             </div>

@@ -1,10 +1,6 @@
 body {
-  background: rgb(86, 95, 175);
-  background: radial-gradient(
-    circle,
-    rgba(86, 95, 175, 1) 0%,
-    rgba(58, 65, 128, 1) 100%
-  );
+  background: #05386b
+
 }
 
 .mainHeading {
@@ -13,7 +9,7 @@ body {
   font-weight: normal;
   font-size: 70px;
 
-  color: #ffffff;
+  color: #edf5e1;
 }
 
 .ml-12 {
@@ -70,11 +66,11 @@ body {
     color: #d6d6d6;
   }
   .loginVert {
-    margin-top: 16vh;
+    margin-top: 42vh;
   }
 
   .loginContactVert {
-    margin-top: 10vh;
+    margin-top: 4vh;
   }
   .whiteButton {
     color: black;
@@ -84,15 +80,16 @@ body {
     border-style: none;
     height: 14vw;
     width: 14vw;
+    box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 }
 @media only screen and (max-width: 1150px) and (min-width: 768px) {
   .loginVert {
-    margin-top: 40vh;
+    margin-top: 68vh;
   }
 
   .loginContactVert {
-    margin-top: 20vh;
+    margin-top: 3vh;
   }
   .whiteButton {
     color: black;
@@ -102,15 +99,16 @@ body {
     border-style: none;
     height: 7vw;
     width: 7vw;
+    box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 }
 @media only screen and (min-width: 1150px) {
   .loginVert {
-    margin-top: 40vh;
+    margin-top: 68vh;
   }
 
   .loginContactVert {
-    margin-top: 20vh;
+    margin-top: 3vh;
   }
   .whiteButton {
     color: black;
@@ -120,6 +118,7 @@ body {
     border-style: none;
     height: 10vh;
     width: 10vh;
+    box-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 }
 .whiteButton:hover {
@@ -134,7 +133,7 @@ body {
 .greenButton {
   color: white;
   font-weight: bold;
-  background: #3ed77b;
+  background: #05386b;
   border-radius: 8px;
   border-style: none;
   min-height: 43px;
@@ -142,15 +141,34 @@ body {
   min-width: 60px;
 }
 .greenButton:hover {
-  background: #6bf0a0;
+  background: #0a58a7;
 }
 .greenButton:active {
-  background: #34c56e;
+  background: #0a58a7;
 }
+
+.greenButtonLight {
+  color: white;
+  font-weight: bold;
+  background: #379683;
+  border-radius: 8px;
+  border-style: none;
+  min-height: 43px;
+  width: 100%;
+  min-width: 60px;
+}
+.greenButtonLight:hover {
+  background: #43b49e;
+}
+.greenButtonLight:active {
+  background: #43b49e;
+}
+
+
 .redButton {
   color: white;
   font-weight: bold;
-  background: #c28b71;
+  background: #bb0000;
   border-radius: 8px;
   border-style: none;
   min-height: 43px;
@@ -158,32 +176,33 @@ body {
   min-width: 60px;
 }
 .redButton:hover {
-  background: #d4a38c;
+  background: #ff0000;
 }
 .redButton:active {
-  background: #b8775a;
+  background: #ff0000;
 }
 .blueButton {
-  color: white;
+  color: #05386b;
   font-weight: bold;
-  background: rgb(97, 124, 168);
-  background: linear-gradient(
-    169deg,
-    rgba(97, 124, 168, 1) 0%,
-    rgb(138, 155, 182) 49%,
-    rgba(97, 124, 168, 1) 100%
-  );
-  border-radius: 8px;
+  background: #edf5e1;
   border-style: none;
-  min-height: 43px;
+  min-height: 63px;
   width: 100%;
+  /*br tr tl bl*/
+  clip-path: polygon(100% 95%, 100% 8%, 0% 0%, 1% 100%);
+  
+  
 }
 .blueButton:hover {
   background: #7b99ca;
+  clip-path: polygon(99% 100%, 100% 0%, 0% 8%, 0% 95%);
 }
 .blueButton:active {
+  border-style: none;
   background: #506b96;
+  clip-path: polygon(99% 100%, 100% 0%, 0% 8%, 0% 95%);
 }
+
 .butt100 {
   width: 100%;
 }

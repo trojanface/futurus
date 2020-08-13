@@ -18,9 +18,8 @@
 }
 
 .blueHighlight {
-  border: 3px solid #565faf;
+  border: 3px solid #5cdb95;
   box-sizing: border-box;
-  border-radius: 8px;
 }
 
 .Enabled {
@@ -48,7 +47,7 @@
 .Disabled {
   color: white;
   font-weight: bold;
-  background: #c28b71;
+  background: #ec6323;
   border-radius: 8px;
   border-style: none;
   height: 43px;
@@ -60,3 +59,32 @@
 .narrow {
   width: 90%;
 }
+
+.menuBar {
+  background-color: #617ca8;
+}
+
+@media only screen and (min-width: 768px) {
+.fillVertSpace {
+  height : calc(100% - 110px);
+  min-height: calc(100vh - 110px);
+}
+}
+
+
+.borderRight {
+  border-right: 2px solid #5cdb95;
+}
+
+.borderRightLGrey {
+  border-right: 2px solid #5cdb95;
+}
+
+.contentContainer {
+  background:
+  linear-gradient(135deg, #05386b 21px, #379683 22px, #379683 24px, transparent 24px, transparent 67px, #379683 67px, #379683 69px, transparent 69px),
+  linear-gradient(225deg, #05386b 21px, #379683 22px, #379683 24px, transparent 24px, transparent 67px, #379683 67px, #379683 69px, transparent 69px)0 64px;
+  background-color:#05386b;
+  background-size: 64px 128px;
+}
+

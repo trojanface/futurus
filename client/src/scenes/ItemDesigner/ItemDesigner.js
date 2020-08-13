@@ -4,6 +4,7 @@ import API from '../../utils/API'
 import Dashboard from '../Dashboard/Dashboard'
 import { NotificationContainer } from 'react-notifications'
 import createNotification from '../../components/CheckBox/Notification'
+import TitleBar from '../Dashboard/TitleBar'
 
 export default function ItemDesigner() {
   //intialisation of states & variables
@@ -123,12 +124,15 @@ export default function ItemDesigner() {
   }
 
   return (
+    <div>
+      <TitleBar />
+
     <div className="row no-gutters">
       <NotificationContainer />
       <div className="col-md-3 text-center">
         <Dashboard screen='3'/>
       </div>
-      <div className="col-md-9 d-flex justify-content-center">
+      <div className="col-md-9 d-flex justify-content-center  contentContainer fillVertSpace">
         <div className="container">
           <div className="modal fade" id="deptModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
@@ -180,13 +184,13 @@ export default function ItemDesigner() {
           </div>
 
 
-          <div className="row blueBackground">
-            <div className="col-md-3 whiteBackground blueHighlight pt-4">
+          <div className="row blueHighlight">
+            <div className="col-md-3 whiteBackground borderRightLGrey pt-4">
               <h5>Departments</h5>
               <ul className="noStyle">
                 {departments.map((element, index) => {
                   return <li className="d-inline" key={index}>
-                    <button className="d-inline blueButton butt75 mtb-2" onClick={() => retrieveItems(index)}>{element.name}</button>
+                    <button className="d-inline blueButton butt75 mtb-2 " onClick={() => retrieveItems(index)}>{element.name}</button>
                     <button onClick={() => deleteDept(index)} className="d-inline redButton butt25 mtb-2"><i class="fa fa-trash" aria-hidden="true"></i></button>
                   </li>
                 })}
@@ -195,7 +199,7 @@ export default function ItemDesigner() {
                 </li>
               </ul>
             </div>
-            <div className="col-md-3 whiteBackground blueHighlight pt-4">
+            <div className="col-md-3 whiteBackground borderRightLGrey pt-4">
               <h5>Items</h5>
               <ul className="noStyle">
                 {departments[0] ?
@@ -207,7 +211,7 @@ export default function ItemDesigner() {
                 {selectedDept ? <button className="greenButton butt75 mtb-2" data-toggle="modal" data-target="#itemModal" >Create Item</button> : <></>}
               </ul>
             </div>
-            <div className="col-md-6 whiteBackground blueHighlight pt-4">
+            <div className="col-md-6 whiteBackground pt-4">
               {selectedItem[0] ?
                 <>
                   <h5>{selectedItem[0].name}</h5>
@@ -251,9 +255,9 @@ export default function ItemDesigner() {
           </div>
           {selectedItem[0] ?
 
-            <div className="row">
+            <div className="row mt-1">
               <div className="col-md-6">
-                <button className="greenButton butt50" onClick={submitChanges}>Save Changes</button>
+                <button className="greenButtonLight butt50" onClick={submitChanges}>Save Changes</button>
               </div>
               <div className="col-md-6">
                 <button className="redButton butt50" onClick={deleteItem}>Delete Item</button>
@@ -264,5 +268,6 @@ export default function ItemDesigner() {
         </div>
       </div>
     </div >
+    </div>
   )
 }

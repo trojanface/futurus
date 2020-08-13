@@ -7,6 +7,7 @@ import Togglebutton from './Togglebutton'
 import createNotification from '../../components/CheckBox/Notification'
 import { NotificationContainer } from 'react-notifications'
 import { store } from '../../GlobalStore'
+import TitleBar from '../Dashboard/TitleBar'
 
 export default function UserDesigner() {
     //initialise state and variables
@@ -137,14 +138,15 @@ export default function UserDesigner() {
 
     return (
         <>
+        <TitleBar/>
             <NotificationContainer />
             <div className="row no-gutters">
                 <div className="col-md-3 text-center">
                     <Dashboard screen='2'/>
                 </div>
-                <div className="col-md-9 d-flex justify-content-center">
+                <div className="col-md-9 d-flex justify-content-center  contentContainer fillVertSpace">
                     <div className="container">
-                        <div className="row blueBackground ">
+                        <div className="row blueHighlight">
                             <div className="modal fade" id="userModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content blueBackground">
@@ -196,7 +198,7 @@ export default function UserDesigner() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-4 whiteBackground blueHighlight pt-4">
+                            <div className="col-md-4 whiteBackground borderRightLGrey pt-4">
                                 <h5>Users</h5>
                                 <ul className="noStyle">
                                     {userList.map((element, index) => {
@@ -210,7 +212,7 @@ export default function UserDesigner() {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-md-8 whiteBackground blueHighlight pt-4">
+                            <div className="col-md-8 whiteBackground pt-4">
 
 
                                 <ul>
@@ -222,14 +224,15 @@ export default function UserDesigner() {
                                         <Inputbox arrayTitle="lastName" changeValue={userChange} title="Last Name" placehold={userList[selected].lastName} />
                                         <Inputbox arrayTitle="email" changeValue={userChange} title="Email" placehold={userList[selected].email} />
                                         <button className="greenButton  butt50" data-toggle="modal" data-target="#passwordModal" >Change Password</button>
-                                        <h5>Permissions</h5>
+                                        <div className="dropdown-divider"></div>
+                                        <h5 className='mb-5'>Permissions</h5>
                                         {(state.user_id - 1) != selected &&
                                             permissions.map((element, index) => {
-                                                return <div key={index} className="row">
+                                                return <div key={index} className="row mb-2 blueHighlight">
                                                     <div className="col-md-4">
                                                         {permissionsText[index]}
                                                     </div>
-                                                    <div className="col-md-7">
+                                                    <div className="col-md-8 text-right">
                                                         <Togglebutton toggleFunc={toggleElement} storedElement={element} storedSelection={selected} storedValue={userList[selected][element]} />
                                                     </div>
                                                 </div>
@@ -246,9 +249,9 @@ export default function UserDesigner() {
                         </div>
                         {userList[0] ?
 
-                            <div className="row">
+                            <div className="row mt-1">
                                 <div className="col-md-6">
-                                    <button className="greenButton butt50" onClick={submitChanges}>Save Changes</button>
+                                    <button className="greenButtonLight butt50" onClick={submitChanges}>Save Changes</button>
                                 </div>
                                 <div className="col-md-6">
                                     <button className="redButton butt50" onClick={deleteUser}>Delete User</button>

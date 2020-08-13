@@ -67,7 +67,7 @@ export default function SplitModal(props) {
                                 }
 
                             </div>
-                            <div className="row no-gutters whiteBackground blueHighlight">
+                            <div className="row no-gutters whiteBackground ">
                                 <div className="col-md-12 pl-2">
                                     TOTAL remaining: ${(props.toPay - amtPaid).toFixed(2)}
                                 </div>

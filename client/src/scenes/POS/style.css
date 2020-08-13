@@ -1,9 +1,8 @@
 .altColor {
-  background: rgb(97, 124, 168);
   background: linear-gradient(
     143deg,
-    rgba(97, 124, 168, 1) 0%,
-    rgba(65, 84, 116, 1) 100%
+    #05386b 0%,
+    #05386b 100%
   );
 }
 
@@ -13,4 +12,11 @@
 
 .rightMenuHeight {
   min-height: 46.3vh;
+}
+
+.labelText {
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }

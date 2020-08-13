@@ -29,7 +29,8 @@ export default function POS() {
   const { transcript, listening, finalTranscript, resetTranscript } = useSpeechRecognition()
   const [temperature, setTemperature] = useState(0)
   const [upsellArray, setUpsellArray] = useState([])
-
+  let colorArray = ['rgb(255, 110, 110)', 'rgb(255, 228, 110)', 'rgb(255, 110, 255)', 'rgb(110, 255, 187)', 'rgb(149, 110, 255)', 'rgb(255, 110, 190)',
+    'rgb(110, 214, 255)', 'rgb(139, 255, 110)', 'rgb(110, 168, 255)', 'rgb(112, 110, 255)', 'rgb(255, 180, 110)'];
   //upon load retrieve all departments and set the width of the department columns
   //then get all items and all items that match with the current department
   //if the global state cannot be accessed then log the user out.
@@ -256,7 +257,7 @@ export default function POS() {
       return <Redirect to='/stocktake' />
 
     case 7:
-      return <Redirect to='/pos' />
+      return <Redirect to='/reports' />
 
     case 8:
       return <Redirect to='/pos' />
@@ -286,8 +287,8 @@ export default function POS() {
 
       </div>
 
-      <nav className="navbar navbar-expand-lg navbar-light altColor">
-        <button className="mr-auto greenButton butt10 " id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <nav className="navbar navbar-expand-lg navbar-light altColor blueHighlight">
+        <button className="mr-auto greenButtonLight butt10 " id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Menu
           </button>
         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -318,14 +319,18 @@ export default function POS() {
         </div>
         <button onClick={() => { API.logOut(); setScreen(10) }} className="my-2 my-sm-0 redButton butt10" type="submit">Sign Out</button>
       </nav>
-      <div className="row no-gutters">
+      <div className="row no-gutters contentContainer fillVertSpace">
         <div className="col-md-3 whiteBackground">
+          {window.innerWidth > 768 &&
+          <>
           <div className="row no-gutters">
             <div className="col-md-12 leftMenuHeight">
-              <h5 className="pl-3">Upsell Window</h5>
+              <h3 className="pl-3">Upsell Window</h3>
               {temperature ?
                 <div className="pl-3">
-                  Current Temperature: {temperature.toFixed(0)} degrees
+                  <h4>
+                    Current Temperature: {temperature.toFixed(0)} degrees
+                  </h4>
                 </div>
                 :
                 <></>
@@ -333,7 +338,7 @@ export default function POS() {
               {upsellArray[0] ?
                 <>
                   {upsellArray.map((element, index) => {
-                    return <div key={index} className="col-md-2 centerText">
+                    return <div key={index} className="col-md-12 centerText">
                       {highlightObj.item === upsellArray[index].prod_id &&
                         <>
                           <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { addToTransaction(element.prod_id) }}></button>
@@ -350,14 +355,14 @@ export default function POS() {
                   })}
                 </>
                 :
-                <>No Upsells Available</>}
+                <div className="pl-3"><h5>No Upsells Available</h5></div>}
             </div>
           </div>
           <div className="dropdown-divider"></div>
           <div className="row no-gutters">
             <div className="col-md-12 leftMenuHeight">
-              <h5 className="pl-3">KPI</h5>
-              <h6 className="pl-3">Transaction Time -
+              <h3 className="pl-3">KPI</h3>
+              <h4 className="pl-3">Transaction Time -
                 {countVal ?
                   <ReactTimer
                     interval={1000}
@@ -369,19 +374,22 @@ export default function POS() {
                   </ReactTimer>
                   : <>0</>
                 } secs
-</h6>
-              <h6 className="pl-3">Avg Transaction Time - {state.totalTrans ?
+                </h4>
+              <h4 className="pl-3">Avg Transaction Time - {state.totalTrans ?
                 state.totTime ?
                   state.totTime / state.totalTrans
                   :
                   0
                 :
                 0
-              } secs</h6>
-              <h6 className="pl-3">SPC - {(SPC / transNum)}</h6>
+              } secs</h4>
+              <h4 className="pl-3">SPC - {(SPC / transNum)}</h4>
             </div>
           </div>
+          </>
+}
         </div>
+
         <div className="col-md-6">
           <div className="row no-gutters">
             {departments[0] ?
@@ -389,13 +397,13 @@ export default function POS() {
                 return <div key={index} className={deptButtWidth}>
                   {highlightObj.dep === (index + 1) &&
                     <div className="centerText">
-                      <button className="roundButton whiteButton mt-3 attention" onClick={() => { getItems(departments[index].dept_id) }}>{element.name}</button>
+                      <button className="roundButton whiteButton mt-3 attention" style={{ backgroundColor: colorArray[index] }} onClick={() => { getItems(departments[index].dept_id) }}>{element.name}</button>
                       {/* <label className="d-block">{element.name}</label> */}
                     </div>
                   }
                   {highlightObj.dep !== (index + 1) &&
                     <div className="centerText">
-                      <button className="roundButton whiteButton mt-3" style={{ backgroundImage: `url(${element.iconPath})` }} onClick={() => { getItems(departments[index].dept_id) }}>{element.name}</button>
+                      <button className="roundButton whiteButton mt-3" style={{ backgroundImage: `url(${element.iconPath})`, backgroundColor: colorArray[index] }} onClick={() => { getItems(departments[index].dept_id) }}>{element.name}</button>
                       {/* <label className="d-block">{element.name}</label> */}
                     </div>
                   }
@@ -437,7 +445,7 @@ export default function POS() {
                     {highlightObj.item === items[index].prod_id &&
                       <>
                         <button className="roundButton whiteButton attention" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[index].stockCount > 0) { addToTransaction(items[index].prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
-                        <label className="d-block">{element.name}</label>
+                        <label className="d-block labelText">{element.name}</label>
                       </>
                     }
                     {highlightObj.item !== items[index].prod_id &&
@@ -445,19 +453,19 @@ export default function POS() {
                         {element.stockCount >= 10 &&
                           <>
                             <button className="roundButton whiteButton " style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[index].stockCount > 0) { addToTransaction(items[index].prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}></button>
-                            <label className="d-block">{element.name}</label>
+                            <label className="d-block labelText">{element.name}</label>
                           </>
                         }
                         {element.stockCount < 10 && element.stockCount > 5 &&
                           <>
                             <button className="roundButton whiteButton lowStock" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[index].stockCount > 0) { addToTransaction(items[index].prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}>LOW STOCK</button>
-                            <label className="d-block">{element.name}</label>
+                            <label className="d-block labelText">{element.name}</label>
                           </>
                         }
                         {element.stockCount <= 5 &&
                           <>
                             <button className="roundButton whiteButton noStock" style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${element.iconPath})` }} onClick={() => { if (items[index].stockCount > 0) { addToTransaction(items[index].prod_id) } else { createNotification('error', 'Error', 'Item out of stock', 3000) } }}>Only {items[index].stockCount} Left</button>
-                            <label className="d-block">{element.name}</label>
+                            <label className="d-block labelText">{element.name}</label>
                           </>
                         }
                       </>
@@ -474,20 +482,24 @@ export default function POS() {
           <div className="row no-gutters">
             <div className="col-md-12 rightMenuHeight">
               <div className="row  no-gutters">
-                <h5 className="pl-3 mr-auto">Current Transaction</h5>
+                <h3 className="pl-3 mr-auto">Current Transaction</h3>
                 <button className="redButton butt25 mt-1" onClick={resetTrans}>Clear</button>
               </div>
-              <div className="row  no-gutters">
+              <div className="row transList no-gutters">
                 {transaction[0] ?
                   <ul>
                     {transaction.map((element, index) => {
-                      return <li key={index}>
+                      return <li  key={index}>
                         <div className="row">
-                          <div className="col-md-8">
-                            {allItems[element - 1].name}
+                          <div className="col-xl-10">
+                            <h4>
+                              {allItems[element - 1].name}
+                            </h4>
                           </div>
-                          <div className="col-md-4">
-                            {(allItems[element - 1].price / 100).toFixed(2)}
+                          <div className="col-xl-2">
+                            <h4>
+                              {(allItems[element - 1].price / 100).toFixed(2)}
+                            </h4>
                           </div>
                         </div>
 
@@ -495,7 +507,7 @@ export default function POS() {
                     })}
                   </ul>
                   :
-                  <h6 className="pl-3">Cart Empty</h6>
+                  <h5 className="pl-3">Cart Empty</h5>
                 }
               </div>
             </div>
@@ -503,10 +515,10 @@ export default function POS() {
 
           <div className="row no-gutters">
             <div className="col-md-12 rightMenuHeight">
-              <h4 className="pl-3">TOTAL: ${total.toFixed(2)}</h4>
+              <h2 className="pl-3">TOTAL: ${total.toFixed(2)}</h2>
               <div className="dropdown-divider"></div>
               <div className="row  no-gutters">
-                <h5 className="pl-3">Payment Options</h5>
+                <h3 className="pl-3">Payment Options</h3>
               </div>
               <div className="row no-gutters">
                 <div className="col-md-6">
@@ -527,6 +539,6 @@ export default function POS() {
 
         </div>
       </div>
-    </div>
+    </div >
   )
 }

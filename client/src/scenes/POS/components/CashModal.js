@@ -68,13 +68,13 @@ export default function CashModal(props) {
                                 }
                             </>
                         })}
-                        <div className="row no-gutters whiteBackground blueHighlight pl-2">
+                        <div className="row no-gutters whiteBackground pt-1 pl-2">
                             TOTAL: ${props.toPay.toFixed(2)}
                         </div>
-                        <div className="row no-gutters whiteBackground blueHighlight pl-2">
+                        <div className="row no-gutters whiteBackground pt-1 pl-2">
                             Paid: ${paid}
                         </div>
-                        <div className="row no-gutters whiteBackground blueHighlight pl-2">
+                        <div className="row no-gutters whiteBackground pt-1 pl-2">
                             {displayVar ? displayVar : `To Pay: $${props.toPay.toFixed(2)}`}
                         </div>
 
